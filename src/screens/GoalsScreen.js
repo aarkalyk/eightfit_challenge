@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { NavigationActions } from 'react-navigation';
 import { View, Text, StyleSheet, Image, Dimensions, ImageBackground, TouchableOpacity } from 'react-native';
 
 import { images } from '../assets';
@@ -6,7 +7,7 @@ import { images } from '../assets';
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
 const GoalItemView = (props) => (
-  <TouchableOpacity>
+  <TouchableOpacity onPress={props.onPress}>
     <View
       style={{
         backgroundColor: 'white',
@@ -34,9 +35,13 @@ const GoalItemView = (props) => (
 );
 
 class GoalsScreen extends Component {
+  static navigationOptions = { header: null };
+
+  onPress = () => this.props.navigation.navigate('AgeEntry');
+
   render() {
     return (
-      <ImageBackground source={images.backgroundGrain} style={{ flex: 1, justifyContent: 'center' }}>
+      <ImageBackground source={images.backgroundGrain} style={styles.backgroundGrain}>
         <View style={{ position: 'absolute', flexDirection: 'row', justifyContent: 'space-between' }}>
           <Image source={images.beans} />
           <View style={{ alignItems: 'flex-end', flex: 1, justifyContent: 'flex-end', marginBottom: -40 }}>
@@ -49,7 +54,7 @@ class GoalsScreen extends Component {
           <Text style={{ marginTop: 8, fontSize: 12 }}>WELCOME TO 8FIT</Text>
           <Text style={{ marginTop: 8, fontSize: 26, fontWeight: 'bold' }}>{"What's your goal"}</Text>
           <View style={{ marginTop: 30, alignSelf: 'stretch' }}>
-            <GoalItemView />
+            <GoalItemView onPress={this.onPress} />
             <GoalItemView />
             <GoalItemView />
           </View>
@@ -60,6 +65,10 @@ class GoalsScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+  backgroundGrain: {
+    flex: 1,
+    justifyContent: 'center',
+  },
   container: {
     flex: 1,
     alignItems: 'center',

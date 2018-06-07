@@ -5,4 +5,5 @@ export const images = {
   beans: require('../../resources/img/imgBeans.png'),
   dumbell: require('../../resources/img/imgDumbbell.png'),
   mat: require('../../resources/img/imgMat.png'),
+  leftArrow: require('../../resources/img/icArrowLeft.png'),
 };
