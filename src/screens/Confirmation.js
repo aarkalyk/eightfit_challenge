@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, ImageBackground, Image } from 'react-native';
+import { connect } from 'react-redux';
 
 import { images } from '../assets';
 import { Button } from '../components/common';
@@ -21,7 +22,7 @@ class ConfirmationScreen extends Component {
         overflow: 'hidden',
       }}
     >
-      {['title', 'title2', 'title1'].map((title, i) => {
+      {Object.keys(this.props.userData).map((key, i) => {
         const borderBottomWidth = i < 2 ? 1 : 0;
 
         return (
@@ -37,8 +38,8 @@ class ConfirmationScreen extends Component {
             }}
             key={i}
           >
-            <Text style={{ fontSize: 16 }}>{title}</Text>
-            <Text style={{ marginRight: 10 }}>value</Text>
+            <Text style={{ fontSize: 16 }}>{key}</Text>
+            <Text style={{ marginRight: 10 }}>{`${this.props.userData[key]}`}</Text>
           </View>
         );
       })}
@@ -75,4 +76,19 @@ class ConfirmationScreen extends Component {
   }
 }
 
-export { ConfirmationScreen };
+const mapStateToProps = ({ onboarding }) => {
+  const { goal, age, height } = onboarding;
+  const Goal = goal;
+  const Age = `${age} years`;
+  const Height = height.measureUnits === 'cm' ? `${height.centimiters}cm` : `${height.feet}ft ${height.inches}in`;
+
+  return {
+    userData: {
+      Goal,
+      Age,
+      Height,
+    },
+  };
+};
+
+export const Confirmation = connect(mapStateToProps)(ConfirmationScreen);

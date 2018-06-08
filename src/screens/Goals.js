@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { NavigationActions } from 'react-navigation';
 import { View, Text, StyleSheet, Image, Dimensions, ImageBackground, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
 
 import { OnboardingRoutes } from '../components/navigation';
+import { setGoal } from '../actions';
 import { images } from '../assets';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -38,7 +40,10 @@ const GoalItemView = (props) => (
 class GoalsScreen extends Component {
   static navigationOptions = { header: null };
 
-  onPress = () => this.props.navigation.navigate(OnboardingRoutes.AgeEntry);
+  onPress = () => {
+    this.props.setGoal('lose_fat');
+    this.props.navigation.navigate(OnboardingRoutes.AgeEntry);
+  };
 
   render() {
     return (
@@ -86,4 +91,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export { GoalsScreen };
+export const Goals = connect(null, { setGoal })(GoalsScreen);

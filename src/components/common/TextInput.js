@@ -2,11 +2,11 @@ import React from 'react';
 import { TextInput, View, Text, StyleSheet } from 'react-native';
 
 const MyTextInput = (props) => {
-  const { style, onChangeText, value, title } = props;
+  const { style, onChangeText, value, title, maxLength } = props;
   return (
     <View style={[styles.container, style]}>
       <TextInput
-        maxLength={2}
+        maxLength={maxLength}
         style={styles.textInput}
         keyboardType="numeric"
         value={value}

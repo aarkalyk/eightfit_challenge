@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { View, Text, KeyboardAvoidingView, Image, StyleSheet, Platform } from 'react-native';
+import { connect } from 'react-redux';
 
 import { Button, Header, TextInput } from '../components/common';
 import { images } from '../assets';
 import { OnboardingRoutes } from '../components/navigation';
+import { setAge } from '../actions';
 
 class AgeEntryScreen extends Component {
   static navigationOptions = (navigation) => ({
-    header: <Header />,
+    header: <Header progress={0.75} />,
   });
 
   state = {
@@ -26,6 +28,7 @@ class AgeEntryScreen extends Component {
     this.setState({ errorMessage });
 
     if (!errorMessage) {
+      this.props.setAge(age);
       this.props.navigation.navigate(OnboardingRoutes.HeightEntry);
     }
   };
@@ -82,4 +85,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export { AgeEntryScreen };
+export const AgeEntry = connect(null, { setAge })(AgeEntryScreen);

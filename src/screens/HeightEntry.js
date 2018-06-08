@@ -1,26 +1,32 @@
 import React, { Component } from 'react';
 import { View, Text, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native';
+import { connect } from 'react-redux';
 
 import { Button, Header, TextInput, SegmentedControl } from '../components/common';
 import { OnboardingRoutes } from '../components/navigation';
 import { images } from '../assets';
+import { setHeight } from '../actions';
 
 class HeightEntryScreen extends Component {
   static navigationOptions = {
-    header: <Header />,
+    header: <Header progress={1.0} />,
   };
 
   state = {
-    heightUnits: 'cm',
+    measureUnits: 'cm',
     centimiters: undefined,
     feet: undefined,
     inches: undefined,
     errorMessage: '',
   };
 
-  onContinueButtonPress = () => this.props.navigation.navigate(OnboardingRoutes.Confirmation);
+  onContinueButtonPress = () => {
+    const { measureUnits, centimiters, inches, feet } = this.state;
+    this.props.setHeight({ measureUnits, centimiters, inches, feet });
+    this.props.navigation.navigate(OnboardingRoutes.Confirmation);
+  };
 
-  onChangeUnits = (heightUnits) => this.setState({ heightUnits });
+  onChangeUnits = (measureUnits) => this.setState({ measureUnits });
 
   onChangeText = (name) => (text) => {
     const value = !isNaN(text) && Number(text);
@@ -28,14 +34,15 @@ class HeightEntryScreen extends Component {
   };
 
   renderTextInputs = () => {
-    const { centimiters, heightUnits, inches, feet } = this.state;
+    const { centimiters, measureUnits, inches, feet } = this.state;
 
-    return heightUnits === 'cm' ? (
+    return measureUnits === 'cm' ? (
       <TextInput
         onChangeText={this.onChangeText('centimiters')}
         value={centimiters ? `${centimiters}` : ''}
         title="Cm"
         style={{ marginHorizontal: 25 }}
+        maxLength={3}
       />
     ) : (
       <View style={{ flexDirection: 'row' }}>
@@ -44,19 +51,21 @@ class HeightEntryScreen extends Component {
           value={feet ? `${feet}` : ''}
           title="Ft"
           style={{ flex: 0.5, marginLeft: 25, marginRight: 12.5 }}
+          maxLength={3}
         />
         <TextInput
           onChangeText={this.onChangeText('inches')}
           value={inches ? `${inches}` : ''}
           title="In"
           style={{ flex: 0.5, marginRight: 25, marginLeft: 12.5 }}
+          maxLength={3}
         />
       </View>
     );
   };
 
   render() {
-    const { centimiters, errorMessage, heightUnits } = this.state;
+    const { centimiters, errorMessage, measureUnits } = this.state;
     return (
       <View style={{ flex: 1, backgroundColor: 'white', justifyContent: 'space-between' }}>
         <View style={{ alignItems: 'center' }}>
@@ -67,7 +76,7 @@ class HeightEntryScreen extends Component {
             style={{ marginTop: 15 }}
             titles={['cm', 'ft']}
             onSelect={this.onChangeUnits}
-            currentIndex={heightUnits === 'cm' ? 0 : 1}
+            currentIndex={measureUnits === 'cm' ? 0 : 1}
           />
         </View>
         <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={64}>
@@ -83,4 +92,4 @@ class HeightEntryScreen extends Component {
   }
 }
 
-export { HeightEntryScreen };
+export const HeightEntry = connect(null, { setHeight })(HeightEntryScreen);

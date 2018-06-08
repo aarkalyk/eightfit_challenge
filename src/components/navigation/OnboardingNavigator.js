@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { createStackNavigator } from 'react-navigation';
 
-import { GoalsScreen, AgeEntryScreen, HeightEntryScreen, ConfirmationScreen } from '../../screens';
+import { Goals, AgeEntry, HeightEntry, Confirmation } from '../../screens';
 
 export const OnboardingRoutes = {
   Goals: 'Goals',
@@ -10,9 +10,14 @@ export const OnboardingRoutes = {
   Confirmation: 'Confirmation',
 };
 
-export const OnboardingNavigator = createStackNavigator({
-  [OnboardingRoutes.Goals]: GoalsScreen,
-  [OnboardingRoutes.AgeEntry]: AgeEntryScreen,
-  [OnboardingRoutes.HeightEntry]: HeightEntryScreen,
-  [OnboardingRoutes.Confirmation]: ConfirmationScreen,
-});
+export const OnboardingNavigator = createStackNavigator(
+  {
+    [OnboardingRoutes.Goals]: Goals,
+    [OnboardingRoutes.AgeEntry]: AgeEntry,
+    [OnboardingRoutes.HeightEntry]: HeightEntry,
+    [OnboardingRoutes.Confirmation]: Confirmation,
+  },
+  {
+    headerMode: 'screen',
+  },
+);

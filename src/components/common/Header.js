@@ -3,10 +3,12 @@ import { View, Image, StyleSheet } from 'react-native';
 
 import { images } from '../../assets';
 
+const getPercentage = (progress) => `${(1.0 - progress) * 100}%`;
+
 export const Header = (props) => (
   <View style={styles.container}>
     <Image source={images.leftArrow} style={styles.image} />
-    <View style={styles.progressBar} />
+    {props.progress && <View style={[styles.progressBar, { marginRight: getPercentage(props.progress) }]} />}
   </View>
 );
 
@@ -24,6 +26,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
     alignSelf: 'stretch',
     height: 4,
-    marginRight: '25%',
   },
 });
