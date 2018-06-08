@@ -3,6 +3,7 @@ import { View, Text, KeyboardAvoidingView, Image, StyleSheet, Platform } from 'r
 
 import { Button, Header, TextInput } from '../components/common';
 import { images } from '../assets';
+import { OnboardingRoutes } from '../components/navigation';
 
 class AgeEntryScreen extends Component {
   static navigationOptions = (navigation) => ({
@@ -25,7 +26,7 @@ class AgeEntryScreen extends Component {
     this.setState({ errorMessage });
 
     if (!errorMessage) {
-      this.props.navigation.navigate('HeightEntry');
+      this.props.navigation.navigate(OnboardingRoutes.HeightEntry);
     }
   };
 
@@ -46,7 +47,12 @@ class AgeEntryScreen extends Component {
           />
         </View>
         <KeyboardAvoidingView behavior={keyboardBehavior} keyboardVerticalOffset={64}>
-          <Button onPress={this.onContinueButtonPress} disabled={!this.state.age} />
+          <Button
+            onPress={this.onContinueButtonPress}
+            disabled={!this.state.age}
+            title="Continue"
+            style={{ marginBottom: 20 }}
+          />
         </KeyboardAvoidingView>
       </View>
     );
@@ -55,13 +61,11 @@ class AgeEntryScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
     flex: 1,
     backgroundColor: 'white',
     justifyContent: 'space-between',
   },
   inputContainer: {
-    alignSelf: 'stretch',
     alignItems: 'center',
   },
   title: {

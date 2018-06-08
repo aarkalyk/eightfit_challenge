@@ -6,4 +6,5 @@ export const images = {
   dumbell: require('../../resources/img/imgDumbbell.png'),
   mat: require('../../resources/img/imgMat.png'),
   leftArrow: require('../../resources/img/icArrowLeft.png'),
+  parsley: require('../../resources/img/imgParsley.png'),
 };

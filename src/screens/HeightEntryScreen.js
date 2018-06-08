@@ -1,44 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native';
 
-import { Button, Header, TextInput } from '../components/common';
+import { Button, Header, TextInput, SegmentedControl } from '../components/common';
+import { OnboardingRoutes } from '../components/navigation';
 import { images } from '../assets';
-
-const SegmentedControl = (props) => (
-  <View
-    style={[
-      {
-        flexDirection: 'row',
-        height: 30,
-        borderRadius: 15,
-        overflow: 'hidden',
-        borderWidth: 1,
-        borderColor: 'black',
-      },
-      props.style,
-    ]}
-  >
-    {props.titles.map((title, i) => {
-      const isActive = i === props.currentIndex;
-      return (
-        <TouchableWithoutFeedback
-          onPress={() => {
-            props.onSelect(i);
-          }}
-          key={i}
-        >
-          <View style={{ backgroundColor: isActive ? 'black' : 'white', justifyContent: 'center' }}>
-            <Text
-              style={{ paddingHorizontal: 20, color: isActive ? 'white' : 'black', fontWeight: 'bold', fontSize: 16 }}
-            >
-              {title}
-            </Text>
-          </View>
-        </TouchableWithoutFeedback>
-      );
-    })}
-  </View>
-);
 
 class HeightEntryScreen extends Component {
   static navigationOptions = {
@@ -53,31 +18,36 @@ class HeightEntryScreen extends Component {
     errorMessage: '',
   };
 
-  onChangeUnits = (index) => {
-    const heightUnits = index === 0 ? 'cm' : 'ft';
-    this.setState({ heightUnits });
+  onContinueButtonPress = () => this.props.navigation.navigate(OnboardingRoutes.Confirmation);
+
+  onChangeUnits = (heightUnits) => this.setState({ heightUnits });
+
+  onChangeText = (name) => (text) => {
+    const value = !isNaN(text) && Number(text);
+    this.setState({ [name]: value });
   };
 
   renderTextInputs = () => {
-    const { centimiters, heightUnits } = this.state;
+    const { centimiters, heightUnits, inches, feet } = this.state;
+
     return heightUnits === 'cm' ? (
       <TextInput
-        onChangeText={this.onChangeAge}
+        onChangeText={this.onChangeText('centimiters')}
         value={centimiters ? `${centimiters}` : ''}
         title="Cm"
         style={{ marginHorizontal: 25 }}
       />
     ) : (
-      <View style={{ flexDirection: 'row', alignSelf: 'stretch' }}>
+      <View style={{ flexDirection: 'row' }}>
         <TextInput
-          onChangeText={this.onChangeAge}
-          value={centimiters ? `${centimiters}` : ''}
+          onChangeText={this.onChangeText('feet')}
+          value={feet ? `${feet}` : ''}
           title="Ft"
           style={{ flex: 0.5, marginLeft: 25, marginRight: 12.5 }}
         />
         <TextInput
-          onChangeText={this.onChangeAge}
-          value={centimiters ? `${centimiters}` : ''}
+          onChangeText={this.onChangeText('inches')}
+          value={inches ? `${inches}` : ''}
           title="In"
           style={{ flex: 0.5, marginRight: 25, marginLeft: 12.5 }}
         />
@@ -88,8 +58,8 @@ class HeightEntryScreen extends Component {
   render() {
     const { centimiters, errorMessage, heightUnits } = this.state;
     return (
-      <View style={{ alignItems: 'center', flex: 1, backgroundColor: 'white', justifyContent: 'space-between' }}>
-        <View style={{ alignSelf: 'stretch', alignItems: 'center' }}>
+      <View style={{ flex: 1, backgroundColor: 'white', justifyContent: 'space-between' }}>
+        <View style={{ alignItems: 'center' }}>
           <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 25 }}>{"What's your height?"}</Text>
           {errorMessage && <Text style={{ color: 'red', marginTop: 5 }}>{errorMessage}</Text>}
           {this.renderTextInputs()}
@@ -101,7 +71,12 @@ class HeightEntryScreen extends Component {
           />
         </View>
         <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={64}>
-          <Button onPress={this.onContinueButtonPress} disabled={!this.state.age} />
+          <Button
+            onPress={this.onContinueButtonPress}
+            disabled={!this.state.centimiters}
+            title="Continue"
+            style={{ marginBottom: 20 }}
+          />
         </KeyboardAvoidingView>
       </View>
     );

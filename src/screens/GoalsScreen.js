@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { NavigationActions } from 'react-navigation';
 import { View, Text, StyleSheet, Image, Dimensions, ImageBackground, TouchableOpacity } from 'react-native';
 
+import { OnboardingRoutes } from '../components/navigation';
 import { images } from '../assets';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -37,16 +38,26 @@ const GoalItemView = (props) => (
 class GoalsScreen extends Component {
   static navigationOptions = { header: null };
 
-  onPress = () => this.props.navigation.navigate('AgeEntry');
+  onPress = () => this.props.navigation.navigate(OnboardingRoutes.AgeEntry);
 
   render() {
     return (
       <ImageBackground source={images.backgroundGrain} style={styles.backgroundGrain}>
-        <View style={{ position: 'absolute', flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Image source={images.beans} />
-          <View style={{ alignItems: 'flex-end', flex: 1, justifyContent: 'flex-end', marginBottom: -40 }}>
+        <View
+          style={{
+            position: 'absolute',
+            flexDirection: 'row',
+            flex: 1,
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+          }}
+        >
+          <Image source={images.beans} style={{ alignSelf: 'center' }} />
+          <View style={{ alignItems: 'flex-end', flex: 1, justifyContent: 'flex-end', marginBottom: 40 }}>
             <Image source={images.mat} />
-            <Image source={images.dumbell} style={{ marginTop: -270 }} />
+            <Image source={images.dumbell} style={{ position: 'absolute' }} />
           </View>
         </View>
         <View style={styles.container}>
