@@ -54,6 +54,7 @@ class HeightEntryScreen extends Component {
         style={styles.cmTextInput}
         maxLength={3}
         hasError={!!errorMessage}
+        autoFocus={true}
       />
     ) : (
       <View style={{ flexDirection: 'row' }}>
@@ -64,6 +65,7 @@ class HeightEntryScreen extends Component {
           style={styles.ftTextInput}
           maxLength={1}
           hasError={!!errorMessage}
+          autoFocus
         />
         <TextInput
           onChangeText={this.onChangeText('inches')}
@@ -96,7 +98,7 @@ class HeightEntryScreen extends Component {
         <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={64}>
           <Button
             onPress={this.onContinueButtonPress}
-            disabled={!this.state.centimiters}
+            disabled={!!errorMessage || !this.state.centimiters}
             title="Continue"
             style={styles.continueButton}
           />

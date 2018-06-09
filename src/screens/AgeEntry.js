@@ -51,12 +51,13 @@ class AgeEntryScreen extends Component {
             style={styles.textInput}
             maxLength={3}
             hasError={!!errorMessage}
+            autoFocus={true}
           />
         </View>
         <KeyboardAvoidingView behavior={keyboardBehavior} keyboardVerticalOffset={64}>
           <Button
             onPress={this.onContinueButtonPress}
-            disabled={!!errorMessage}
+            disabled={!!errorMessage || !age}
             title="Continue"
             style={{ marginBottom: 20 }}
           />
