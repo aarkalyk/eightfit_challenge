@@ -1,14 +1,16 @@
 import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { images } from '../../assets';
 
-const getPercentage = (progress) => `${(1.0 - progress) * 100}%`;
+const marginPercentage = (progress) => `${(1.0 - progress) * 100}%`;
 
-export const Header = (props) => (
-  <View style={styles.container}>
-    <Image source={images.leftArrow} style={styles.image} />
-    {props.progress && <View style={[styles.progressBar, { marginRight: getPercentage(props.progress) }]} />}
+export const Header = ({ progress, onBackButtonPress, style }) => (
+  <View style={[styles.container, style]}>
+    <TouchableOpacity onPress={onBackButtonPress} style={styles.touchableOpacity}>
+      <Image source={images.leftArrow} />
+    </TouchableOpacity>
+    {progress && <View style={[styles.progressBar, { marginRight: marginPercentage(progress) }]} />}
   </View>
 );
 
@@ -18,13 +20,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     justifyContent: 'space-between',
   },
-  image: {
-    marginLeft: 15,
-    marginTop: 24,
-  },
   progressBar: {
     backgroundColor: 'green',
     alignSelf: 'stretch',
     height: 4,
+  },
+  touchableOpacity: {
+    height: 44,
+    width: 44,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 15,
   },
 });

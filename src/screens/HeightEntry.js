@@ -8,9 +8,9 @@ import { images } from '../assets';
 import { setHeight } from '../actions';
 
 class HeightEntryScreen extends Component {
-  static navigationOptions = {
-    header: <Header progress={1.0} />,
-  };
+  static navigationOptions = ({ navigation }) => ({
+    header: <Header progress={1.0} onBackButtonPress={() => navigation.goBack()} />,
+  });
 
   state = {
     measureUnits: 'cm',

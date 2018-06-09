@@ -3,7 +3,7 @@ import { View, Text, ImageBackground, Image } from 'react-native';
 import { connect } from 'react-redux';
 
 import { images } from '../assets';
-import { Button } from '../components/common';
+import { Button, Header } from '../components/common';
 
 class ConfirmationScreen extends Component {
   static navigationOptions = {
@@ -65,8 +65,14 @@ class ConfirmationScreen extends Component {
           <Image source={images.parsley} style={{ marginTop: 60 }} />
         </View>
         <View style={{ flex: 1, justifyContent: 'space-between' }}>
-          <View style={{ justifyContent: 'center', flex: 0.8 }}>
-            <Text style={{ fontSize: 25, fontWeight: 'bold', alignSelf: 'center' }}>Confirm your details:</Text>
+          <View>
+            <Header
+              style={{ backgroundColor: 'transparent' }}
+              onBackButtonPress={() => this.props.navigation.goBack()}
+            />
+            <Text style={{ fontSize: 25, fontWeight: 'bold', alignSelf: 'center', marginTop: 40 }}>
+              Confirm your details:
+            </Text>
             {this.renderDetailsTable()}
           </View>
           <Button title="Save" style={{ marginBottom: 20 }} />

@@ -1,78 +1,79 @@
 import React, { Component } from 'react';
 import { NavigationActions } from 'react-navigation';
-import { View, Text, StyleSheet, Image, Dimensions, ImageBackground, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions, ImageBackground, TouchableOpacity, Animated } from 'react-native';
 import { connect } from 'react-redux';
 
 import { OnboardingRoutes } from '../components/navigation';
+import { animatedBackgroundViews, DelayedAppearance } from '../components/common';
+import { GoalItem } from '../components/onboarding';
 import { setGoal } from '../actions';
 import { images } from '../assets';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
-
-const GoalItemView = (props) => (
-  <TouchableOpacity onPress={props.onPress}>
-    <View
-      style={{
-        backgroundColor: 'white',
-        height: 100,
-        marginTop: 20,
-        paddingHorizontal: 15,
-        borderRadius: 5,
-        marginHorizontal: 15,
-        alignItems: 'center',
-        flexDirection: 'row',
-        alignSelf: 'stretch',
-        justifyContent: 'space-between',
-        shadowOffset: { width: 2, height: 2 },
-        shadowColor: 'black',
-        shadowOpacity: 0.2,
-      }}
-    >
-      <View style={{ justifyContent: 'space-evenly' }}>
-        <Text style={{ fontSize: 20, fontWeight: 'bold', marginVertical: 4 }}>Lose weight</Text>
-        <Text style={{ fontSize: 16, marginVertical: 4 }}>Burn fat & get lean</Text>
-      </View>
-      <Image source={images.chevronRight} />
-    </View>
-  </TouchableOpacity>
-);
+const SCREEN_HEIGHT = Dimensions.get('window').height;
+const ANIMATON_DURATION = 800;
 
 class GoalsScreen extends Component {
   static navigationOptions = { header: null };
+
+  appIconMarginTop = new Animated.Value(SCREEN_HEIGHT / 2);
+
+  componentDidMount() {
+    Animated.timing(this.appIconMarginTop, {
+      toValue: 40,
+      duration: ANIMATON_DURATION,
+    }).start();
+  }
 
   onPress = () => {
     this.props.setGoal('lose_fat');
     this.props.navigation.navigate(OnboardingRoutes.AgeEntry);
   };
 
+  renderBackgroundImages = () =>
+    animatedBackgroundViews(
+      <Image source={images.beans} style={{ alignSelf: 'center' }} />,
+      <View style={{ alignItems: 'flex-end', flex: 1, justifyContent: 'flex-end', marginBottom: 40 }}>
+        <Image source={images.mat} />
+        <Image source={images.dumbell} style={{ position: 'absolute' }} />
+      </View>,
+    );
+
+  renderAppIcon = () => {
+    const height = this.appIconMarginTop.interpolate({
+      inputRange: [40, SCREEN_HEIGHT / 2],
+      outputRange: [44, 60],
+    });
+    const width = this.appIconMarginTop.interpolate({
+      inputRange: [40, SCREEN_HEIGHT / 2],
+      outputRange: [22, 30],
+    });
+
+    return <Animated.Image source={images.appIcon} style={{ marginTop: this.appIconMarginTop, height, width }} />;
+  };
+
   render() {
     return (
       <ImageBackground source={images.backgroundGrain} style={styles.backgroundGrain}>
-        <View
-          style={{
-            position: 'absolute',
-            flexDirection: 'row',
-            flex: 1,
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-          }}
-        >
-          <Image source={images.beans} style={{ alignSelf: 'center' }} />
-          <View style={{ alignItems: 'flex-end', flex: 1, justifyContent: 'flex-end', marginBottom: 40 }}>
-            <Image source={images.mat} />
-            <Image source={images.dumbell} style={{ position: 'absolute' }} />
-          </View>
-        </View>
+        {this.renderBackgroundImages()}
         <View style={styles.container}>
-          <Image source={images.appIcon} style={{ marginTop: 50 }} />
-          <Text style={{ marginTop: 8, fontSize: 12 }}>WELCOME TO 8FIT</Text>
-          <Text style={{ marginTop: 8, fontSize: 26, fontWeight: 'bold' }}>{"What's your goal"}</Text>
-          <View style={{ marginTop: 30, alignSelf: 'stretch' }}>
-            <GoalItemView onPress={this.onPress} />
-            <GoalItemView />
-            <GoalItemView />
+          {this.renderAppIcon()}
+          <DelayedAppearance delay={ANIMATON_DURATION / 2}>
+            <Text style={styles.welcomeText}>WELCOME TO 8FIT</Text>
+          </DelayedAppearance>
+          <DelayedAppearance delay={ANIMATON_DURATION / 2 + 100}>
+            <Text style={styles.whatsYourGoalText}>{"What's your goal"}</Text>
+          </DelayedAppearance>
+          <View style={styles.goalsContainer}>
+            <DelayedAppearance delay={ANIMATON_DURATION - 100}>
+              <GoalItem onPress={this.onPress} />
+            </DelayedAppearance>
+            <DelayedAppearance delay={ANIMATON_DURATION}>
+              <GoalItem />
+            </DelayedAppearance>
+            <DelayedAppearance delay={ANIMATON_DURATION + 100}>
+              <GoalItem />
+            </DelayedAppearance>
           </View>
         </View>
       </ImageBackground>
@@ -84,10 +85,24 @@ const styles = StyleSheet.create({
   backgroundGrain: {
     flex: 1,
     justifyContent: 'center',
+    backgroundColor: 'white',
   },
   container: {
     flex: 1,
     alignItems: 'center',
+  },
+  welcomeText: {
+    marginTop: 8,
+    fontSize: 12,
+  },
+  whatsYourGoalText: {
+    marginTop: 8,
+    fontSize: 26,
+    fontWeight: 'bold',
+  },
+  goalsContainer: {
+    marginTop: 30,
+    alignSelf: 'stretch',
   },
 });
 

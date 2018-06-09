@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, KeyboardAvoidingView, Image, StyleSheet, Platform } from 'react-native';
 import { connect } from 'react-redux';
+import { NavigationActions } from 'react-navigation';
 
 import { Button, Header, TextInput } from '../components/common';
 import { images } from '../assets';
@@ -8,8 +9,8 @@ import { OnboardingRoutes } from '../components/navigation';
 import { setAge } from '../actions';
 
 class AgeEntryScreen extends Component {
-  static navigationOptions = (navigation) => ({
-    header: <Header progress={0.75} />,
+  static navigationOptions = ({ navigation }) => ({
+    header: <Header progress={0.75} onBackButtonPress={() => navigation.goBack()} />,
   });
 
   state = {
