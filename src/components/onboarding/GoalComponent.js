@@ -3,12 +3,12 @@ import { TouchableOpacity, View, Text, Image, StyleSheet } from 'react-native';
 
 import { images } from '../../assets';
 
-export const GoalItem = (props) => (
-  <TouchableOpacity onPress={props.onPress}>
+export const GoalComponent = ({ onPress, goal }) => (
+  <TouchableOpacity onPress={() => onPress(goal.type)}>
     <View style={styles.mainContainer}>
       <View style={styles.textContainer}>
-        <Text style={styles.title}>Lose weight</Text>
-        <Text style={styles.subtitle}>Burn fat & get lean</Text>
+        <Text style={styles.title}>{goal.displayTitle}</Text>
+        <Text style={styles.subtitle}>{goal.displaySubtitle}</Text>
       </View>
       <Image source={images.chevronRight} />
     </View>

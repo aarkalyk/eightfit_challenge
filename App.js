@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
@@ -11,17 +10,8 @@ export default class App extends Component {
     const store = createStore(reducers);
     return (
       <Provider store={store}>
-        <View style={styles.container}>
-          <OnboardingNavigator />
-        </View>
+        <OnboardingNavigator />
       </Provider>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-});

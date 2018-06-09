@@ -23,7 +23,11 @@ class DelayedAppearance extends Component {
       inputRange: [0, INITIAL_MARGIN_TOP],
       outputRange: [1, 0],
     });
-    return <Animated.View style={{ marginTop: this.marginTop, opacity }}>{this.props.children}</Animated.View>;
+    return (
+      <Animated.View style={[this.props.style, { marginTop: this.marginTop, opacity }]}>
+        {this.props.children}
+      </Animated.View>
+    );
   }
 }
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, KeyboardAvoidingView, Image, StyleSheet, Platform } from 'react-native';
+import { View, Text, KeyboardAvoidingView, Image, StyleSheet, Platform, LayoutAnimation } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 
@@ -20,18 +20,19 @@ class AgeEntryScreen extends Component {
 
   onChangeAge = (text) => {
     const age = !isNaN(text) && Number(text);
-    this.setState({ age, errorMessage: '' });
+    const errorMessage =
+      age && age < 13 ? 'You must be at least 13 years old' : age > 120 ? 'Please, enter your real age' : '';
+    if (errorMessage !== this.state.errorMessage) {
+      LayoutAnimation.easeInEaseOut();
+    }
+
+    this.setState({ age, errorMessage });
   };
 
   onContinueButtonPress = () => {
     const { age } = this.state;
-    const errorMessage = age < 13 ? 'You must be at least 13 years old' : '';
-    this.setState({ errorMessage });
-
-    if (!errorMessage) {
-      this.props.setAge(age);
-      this.props.navigation.navigate(OnboardingRoutes.HeightEntry);
-    }
+    this.props.setAge(age);
+    this.props.navigation.navigate(OnboardingRoutes.HeightEntry);
   };
 
   render() {
@@ -48,12 +49,14 @@ class AgeEntryScreen extends Component {
             value={age ? `${age}` : ''}
             title={'Years'}
             style={styles.textInput}
+            maxLength={3}
+            hasError={!!errorMessage}
           />
         </View>
         <KeyboardAvoidingView behavior={keyboardBehavior} keyboardVerticalOffset={64}>
           <Button
             onPress={this.onContinueButtonPress}
-            disabled={!this.state.age}
+            disabled={!!errorMessage}
             title="Continue"
             style={{ marginBottom: 20 }}
           />
@@ -75,13 +78,14 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginTop: 25,
+    marginTop: 26,
   },
   errorText: {
     color: 'red',
-    marginTop: 5,
+    marginTop: 10,
   },
   textInput: {
+    marginTop: 10,
     marginHorizontal: 25,
   },
 });

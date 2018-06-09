@@ -1,1 +1,1 @@
-export * from './GoalItem';
+export * from './GoalComponent';

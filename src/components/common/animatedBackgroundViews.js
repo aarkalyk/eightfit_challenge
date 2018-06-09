@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Animated, Dimensions, StyleSheet } from 'react-native';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
+const ANIMATION_DURATION = 1000;
 
 export const animatedBackgroundViews = (LeftComponent, RightComponent) => {
   class AnimatedBackground extends Component {
@@ -14,11 +15,11 @@ export const animatedBackgroundViews = (LeftComponent, RightComponent) => {
     componentDidMount() {
       Animated.timing(this.leftComponentMarginLeft, {
         toValue: 0,
-        duration: 1000,
+        duration: ANIMATION_DURATION,
       }).start();
       Animated.timing(this.rightComponentMarginRight, {
         toValue: 0,
-        duration: 1000,
+        duration: ANIMATION_DURATION,
       }).start();
     }
 

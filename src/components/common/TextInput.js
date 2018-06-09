@@ -2,9 +2,10 @@ import React from 'react';
 import { TextInput, View, Text, StyleSheet } from 'react-native';
 
 const MyTextInput = (props) => {
-  const { title, style, ...textInputProps } = props;
+  const { title, style, hasError, ...textInputProps } = props;
+
   return (
-    <View style={[styles.container, style]}>
+    <View style={[styles.container, style, { borderBottomColor: hasError ? 'red' : 'black' }]}>
       <TextInput style={styles.textInput} keyboardType="numeric" {...textInputProps} />
       <Text style={styles.title}>{title}</Text>
     </View>

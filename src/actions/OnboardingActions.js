@@ -1,8 +1,8 @@
 import { SET_GOAL, SET_AGE, SET_HEIGHT } from './types';
 
-export const setGoal = (goal) => ({
+export const setGoal = (goalType) => ({
   type: SET_GOAL,
-  goal,
+  goalType,
 });
 
 export const setAge = (age) => ({

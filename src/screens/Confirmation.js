@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, ImageBackground, Image } from 'react-native';
+import { View, Text, ImageBackground, Image, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 import { images } from '../assets';
-import { Button, Header } from '../components/common';
+import { Button, Header, animatedBackgroundViews, DelayedAppearance } from '../components/common';
+import { GoalItems } from '../utils/constants';
+
+const FIRST_DELAY = 100;
 
 class ConfirmationScreen extends Component {
   static navigationOptions = {
@@ -11,82 +14,104 @@ class ConfirmationScreen extends Component {
   };
 
   renderDetailsTable = () => (
-    <View
-      style={{
-        marginTop: 40,
-        marginHorizontal: 20,
-        backgroundColor: 'white',
-        borderRadius: 10,
-        borderWidth: 1,
-        borderColor: 'gray',
-        overflow: 'hidden',
-      }}
-    >
-      {Object.keys(this.props.userData).map((key, i) => {
-        const borderBottomWidth = i < 2 ? 1 : 0;
+    <DelayedAppearance delay={FIRST_DELAY + 100}>
+      <View style={styles.userDataContainer}>
+        {Object.keys(this.props.userData).map((key, i) => {
+          const borderBottomWidth = i < 2 ? 1 : 0;
 
-        return (
-          <View
-            style={{
-              marginLeft: 10,
-              borderBottomColor: 'gray',
-              borderBottomWidth,
-              height: 60,
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}
-            key={i}
-          >
-            <Text style={{ fontSize: 16 }}>{key}</Text>
-            <Text style={{ marginRight: 10 }}>{`${this.props.userData[key]}`}</Text>
-          </View>
-        );
-      })}
-    </View>
+          return (
+            <View style={[styles.userDataItemContainer, { borderBottomWidth }]} key={i}>
+              <Text style={styles.userDataItemTitle}>{key}</Text>
+              <Text style={styles.userDataItemValue}>{`${this.props.userData[key]}`}</Text>
+            </View>
+          );
+        })}
+      </View>
+    </DelayedAppearance>
   );
 
   render() {
     return (
-      <ImageBackground source={images.backgroundGrain} style={{ flex: 1 }}>
-        <View
-          style={{
-            position: 'absolute',
-            flexDirection: 'row',
-            flex: 1,
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            justifyContent: 'space-between',
-          }}
-        >
-          <Image source={images.beans} style={{ alignSelf: 'flex-end', marginBottom: -220 }} />
-          <Image source={images.parsley} style={{ marginTop: 60 }} />
-        </View>
-        <View style={{ flex: 1, justifyContent: 'space-between' }}>
+      <ImageBackground source={images.backgroundGrain} style={styles.imageBackground}>
+        {animatedBackgroundViews(
+          <Image source={images.beans} style={styles.beansImage} />,
+          <Image source={images.parsley} style={styles.parsleyImage} />,
+        )}
+        <View style={styles.mainContainer}>
           <View>
             <Header
               style={{ backgroundColor: 'transparent' }}
               onBackButtonPress={() => this.props.navigation.goBack()}
             />
-            <Text style={{ fontSize: 25, fontWeight: 'bold', alignSelf: 'center', marginTop: 40 }}>
-              Confirm your details:
-            </Text>
+            <DelayedAppearance delay={FIRST_DELAY}>
+              <Text style={styles.title}>Confirm your details:</Text>
+            </DelayedAppearance>
             {this.renderDetailsTable()}
           </View>
-          <Button title="Save" style={{ marginBottom: 20 }} />
+          <DelayedAppearance delay={FIRST_DELAY + 200}>
+            <Button title="Save" style={styles.saveButton} />
+          </DelayedAppearance>
         </View>
       </ImageBackground>
     );
   }
 }
 
+const styles = StyleSheet.create({
+  imageBackground: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+  mainContainer: {
+    flex: 1,
+    justifyContent: 'space-between',
+  },
+  beansImage: {
+    alignSelf: 'flex-end',
+    marginBottom: -220,
+  },
+  parsleyImage: {
+    marginTop: 60,
+  },
+  title: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    marginTop: 40,
+  },
+  saveButton: {
+    marginBottom: 20,
+  },
+  userDataContainer: {
+    marginTop: 40,
+    marginHorizontal: 20,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: 'gray',
+    overflow: 'hidden',
+  },
+  userDataItemContainer: {
+    marginLeft: 10,
+    borderBottomColor: 'gray',
+    height: 60,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  userDataItemTitle: {
+    fontSize: 16,
+  },
+  userDataItemValue: {
+    marginRight: 10,
+  },
+});
+
 const mapStateToProps = ({ onboarding }) => {
-  const { goal, age, height } = onboarding;
-  const Goal = goal;
+  const { goalType, age, height } = onboarding;
+  const Goal = GoalItems[goalType].displayTitle;
   const Age = `${age} years`;
-  const Height = height.measureUnits === 'cm' ? `${height.centimiters}cm` : `${height.feet}ft ${height.inches}in`;
+  const Height = `${height}cm`;
 
   return {
     userData: {

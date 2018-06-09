@@ -5,13 +5,14 @@ import { connect } from 'react-redux';
 
 import { OnboardingRoutes } from '../components/navigation';
 import { animatedBackgroundViews, DelayedAppearance } from '../components/common';
-import { GoalItem } from '../components/onboarding';
+import { GoalComponent } from '../components/onboarding';
 import { setGoal } from '../actions';
 import { images } from '../assets';
+import { GoalItems } from '../utils/constants';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
-const ANIMATON_DURATION = 800;
+const ICON_ANIMATON_DURATION = 800;
 
 class GoalsScreen extends Component {
   static navigationOptions = { header: null };
@@ -21,12 +22,12 @@ class GoalsScreen extends Component {
   componentDidMount() {
     Animated.timing(this.appIconMarginTop, {
       toValue: 40,
-      duration: ANIMATON_DURATION,
+      duration: ICON_ANIMATON_DURATION,
     }).start();
   }
 
-  onPress = () => {
-    this.props.setGoal('lose_fat');
+  onGoalItemPress = (goalType) => {
+    this.props.setGoal(goalType);
     this.props.navigation.navigate(OnboardingRoutes.AgeEntry);
   };
 
@@ -52,29 +53,43 @@ class GoalsScreen extends Component {
     return <Animated.Image source={images.appIcon} style={{ marginTop: this.appIconMarginTop, height, width }} />;
   };
 
+  renderTitles = () => (
+    <View style={styles.titlesContainer}>
+      <DelayedAppearance delay={ICON_ANIMATON_DURATION / 2}>
+        <Text style={styles.welcomeText}>WELCOME TO 8FIT</Text>
+      </DelayedAppearance>
+      <DelayedAppearance delay={ICON_ANIMATON_DURATION / 2 + 100}>
+        <Text style={styles.whatsYourGoalText}>{"What's your goal"}</Text>
+      </DelayedAppearance>
+    </View>
+  );
+
+  renderGoals = () => {
+    let delay = ICON_ANIMATON_DURATION - 200;
+    return (
+      <View style={styles.goalsContainer}>
+        {Object.keys(GoalItems).map((key, i) => {
+          const goal = GoalItems[key];
+          delay += 100;
+
+          return (
+            <DelayedAppearance delay={delay} key={i}>
+              <GoalComponent onPress={this.onGoalItemPress} goal={goal} />
+            </DelayedAppearance>
+          );
+        })}
+      </View>
+    );
+  };
+
   render() {
     return (
       <ImageBackground source={images.backgroundGrain} style={styles.backgroundGrain}>
         {this.renderBackgroundImages()}
         <View style={styles.container}>
           {this.renderAppIcon()}
-          <DelayedAppearance delay={ANIMATON_DURATION / 2}>
-            <Text style={styles.welcomeText}>WELCOME TO 8FIT</Text>
-          </DelayedAppearance>
-          <DelayedAppearance delay={ANIMATON_DURATION / 2 + 100}>
-            <Text style={styles.whatsYourGoalText}>{"What's your goal"}</Text>
-          </DelayedAppearance>
-          <View style={styles.goalsContainer}>
-            <DelayedAppearance delay={ANIMATON_DURATION - 100}>
-              <GoalItem onPress={this.onPress} />
-            </DelayedAppearance>
-            <DelayedAppearance delay={ANIMATON_DURATION}>
-              <GoalItem />
-            </DelayedAppearance>
-            <DelayedAppearance delay={ANIMATON_DURATION + 100}>
-              <GoalItem />
-            </DelayedAppearance>
-          </View>
+          {this.renderTitles()}
+          {this.renderGoals()}
         </View>
       </ImageBackground>
     );
@@ -89,6 +104,9 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    alignItems: 'center',
+  },
+  titlesContainer: {
     alignItems: 'center',
   },
   welcomeText: {
