@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, KeyboardAvoidingView, TouchableWithoutFeedback, StyleSheet, LayoutAnimation } from 'react-native';
+import {
+  View,
+  Text,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  StyleSheet,
+  LayoutAnimation,
+} from 'react-native';
 import { connect } from 'react-redux';
 
 import { Button, Header, TextInput, SegmentedControl } from '../components/common';
@@ -16,6 +23,12 @@ class HeightEntryScreen extends Component {
 
   state = { currentUnits: MetricUnits.cm };
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.errorMessage !== prevState.errorMessage) {
+      LayoutAnimation.easeInEaseOut();
+    }
+  }
+
   onContinueButtonPress = () => {
     const { centimiters } = this.state;
     this.props.setHeight(centimiters);
@@ -24,21 +37,24 @@ class HeightEntryScreen extends Component {
 
   onChangeUnits = (currentUnits) => this.setState({ currentUnits });
 
+  getHeightError = (centimiters) =>
+    centimiters && (centimiters < 120 || centimiters > 301) ? 'Please enter your real height' : '';
+
   onChangeText = (name) => (text) => {
     const height = !isNaN(text) && Number(text);
-    const errorMessage = (height && height < 120) || height > 301 ? 'Please enter your real height' : '';
-    if (this.state.errorMessage !== errorMessage) {
-      LayoutAnimation.easeInEaseOut();
-    }
 
-    this.setState({ [name]: height, errorMessage }, () => {
+    this.setState({ [name]: height }, () => {
       if (this.state.currentUnits === MetricUnits.cm) {
         const { feet, inches } = Converter.cmToFeet(height);
-        this.setState({ feet, inches });
+        const errorMessage = this.getHeightError(height);
+
+        this.setState({ feet, inches, errorMessage });
       } else {
         const { feet, inches } = this.state;
         const centimiters = Converter.feetToCm(feet, inches);
-        this.setState({ centimiters });
+        const errorMessage = this.getHeightError(centimiters);
+
+        this.setState({ centimiters, errorMessage });
       }
     });
   };
@@ -85,7 +101,7 @@ class HeightEntryScreen extends Component {
     return (
       <View style={styles.mainContainer}>
         <View style={styles.upperHalfContainer}>
-          <Text style={styles.title}>{"What's your height?"}</Text>
+          <Text style={styles.title}>How tall are you?</Text>
           {errorMessage && <Text style={styles.errorText}>{errorMessage}</Text>}
           {this.renderTextInputs()}
           <SegmentedControl

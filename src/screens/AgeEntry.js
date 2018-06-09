@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, KeyboardAvoidingView, Image, StyleSheet, Platform, LayoutAnimation } from 'react-native';
+import {
+  View,
+  Text,
+  KeyboardAvoidingView,
+  Image,
+  StyleSheet,
+  Platform,
+  LayoutAnimation,
+} from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 
@@ -18,13 +26,18 @@ class AgeEntryScreen extends Component {
     errorMessage: '',
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.errorMessage !== prevState.errorMessage) {
+      LayoutAnimation.easeInEaseOut();
+    }
+  }
+
   onChangeAge = (text) => {
     const age = !isNaN(text) && Number(text);
     const errorMessage =
-      age && age < 13 ? 'You must be at least 13 years old' : age > 120 ? 'Please, enter your real age' : '';
-    if (errorMessage !== this.state.errorMessage) {
-      LayoutAnimation.easeInEaseOut();
-    }
+      age && age < 13
+        ? 'You must be at least 13 years old'
+        : age > 120 ? 'Please, enter your real age' : '';
 
     this.setState({ age, errorMessage });
   };
@@ -42,7 +55,7 @@ class AgeEntryScreen extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.inputContainer}>
-          <Text style={styles.title}>How old are you</Text>
+          <Text style={styles.title}>How old are you?</Text>
           {errorMessage && <Text style={styles.errorText}>{errorMessage}</Text>}
           <TextInput
             onChangeText={this.onChangeAge}

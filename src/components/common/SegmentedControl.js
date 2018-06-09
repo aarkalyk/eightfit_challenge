@@ -1,12 +1,14 @@
 import React from 'react';
 import { View, TouchableWithoutFeedback, Text, StyleSheet } from 'react-native';
 
+import { colors } from '../../assets';
+
 export const SegmentedControl = ({ style, titles, currentIndex, onSelect }) => (
   <View style={[styles.container, style]}>
     {titles.map((title, i) => {
       const isActive = i === currentIndex;
-      const backgroundColor = isActive ? 'black' : 'white';
-      const titleColor = isActive ? 'white' : 'black';
+      const backgroundColor = isActive ? colors.black : 'white';
+      const titleColor = isActive ? 'white' : colors.black;
       const borderRightWidth = titles.length - 1 > i ? 1 : 0; // in case there are more than 2 items
 
       return (
@@ -35,11 +37,11 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     overflow: 'hidden',
     borderWidth: 1,
-    borderColor: 'black',
+    borderColor: colors.black,
   },
   titleContainer: {
     justifyContent: 'center',
-    borderRightColor: 'black',
+    borderRightColor: colors.black,
   },
   title: {
     paddingHorizontal: 20,

@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 import { NavigationActions } from 'react-navigation';
-import { View, Text, StyleSheet, Image, Dimensions, ImageBackground, TouchableOpacity, Animated } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Dimensions,
+  ImageBackground,
+  TouchableOpacity,
+  Animated,
+} from 'react-native';
 import { connect } from 'react-redux';
 
 import { OnboardingRoutes } from '../components/navigation';
@@ -34,7 +43,14 @@ class GoalsScreen extends Component {
   renderBackgroundImages = () =>
     animatedBackgroundViews(
       <Image source={images.beans} style={{ alignSelf: 'center' }} />,
-      <View style={{ alignItems: 'flex-end', flex: 1, justifyContent: 'flex-end', marginBottom: 40 }}>
+      <View
+        style={{
+          alignItems: 'flex-end',
+          flex: 1,
+          justifyContent: 'flex-end',
+          marginBottom: 40,
+        }}
+      >
         <Image source={images.mat} />
         <Image source={images.dumbell} style={{ position: 'absolute' }} />
       </View>,
@@ -50,7 +66,12 @@ class GoalsScreen extends Component {
       outputRange: [22, 30],
     });
 
-    return <Animated.Image source={images.appIcon} style={{ marginTop: this.appIconMarginTop, height, width }} />;
+    return (
+      <Animated.Image
+        source={images.appIcon}
+        style={{ marginTop: this.appIconMarginTop, height, width }}
+      />
+    );
   };
 
   renderTitles = () => (

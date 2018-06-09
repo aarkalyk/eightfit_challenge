@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, View, Text, Image, StyleSheet } from 'react-native';
 
-import { images } from '../../assets';
+import { images, colors } from '../../assets';
 
 export const GoalComponent = ({ onPress, goal }) => (
   <TouchableOpacity onPress={() => onPress(goal.type)}>
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     justifyContent: 'space-between',
     shadowOffset: { width: 2, height: 2 },
-    shadowColor: 'black',
+    shadowColor: colors.black,
     shadowOpacity: 0.2,
   },
   textContainer: {

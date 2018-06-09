@@ -1,9 +1,17 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
+import { colors } from '../../assets';
+
 export const Button = ({ disabled, onPress, style, title }) => (
   <TouchableOpacity disabled={disabled} onPress={onPress}>
-    <View style={[styles.titleContainer, style, { backgroundColor: disabled ? 'gray' : 'black' }]}>
+    <View
+      style={[
+        styles.titleContainer,
+        style,
+        { backgroundColor: disabled ? colors.gray : colors.black },
+      ]}
+    >
       <Text style={styles.title}>{title}</Text>
     </View>
   </TouchableOpacity>

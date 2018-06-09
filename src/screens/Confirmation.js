@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, ImageBackground, Image, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
-import { images } from '../assets';
+import { images, colors } from '../assets';
 import { Button, Header, animatedBackgroundViews, DelayedAppearance } from '../components/common';
 import { GoalItems } from '../utils/constants';
 
@@ -40,7 +40,7 @@ class ConfirmationScreen extends Component {
         <View style={styles.mainContainer}>
           <View>
             <Header
-              style={{ backgroundColor: 'transparent' }}
+              style={styles.header}
               onBackButtonPress={() => this.props.navigation.goBack()}
             />
             <DelayedAppearance delay={FIRST_DELAY}>
@@ -73,6 +73,10 @@ const styles = StyleSheet.create({
   parsleyImage: {
     marginTop: 60,
   },
+  header: {
+    backgroundColor: 'transparent',
+    borderBottomWidth: 0,
+  },
   title: {
     fontSize: 25,
     fontWeight: 'bold',
@@ -88,12 +92,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: colors.grayLight,
     overflow: 'hidden',
   },
   userDataItemContainer: {
     marginLeft: 10,
-    borderBottomColor: 'gray',
+    borderBottomColor: colors.grayUltraLight,
     height: 60,
     flexDirection: 'row',
     alignItems: 'center',

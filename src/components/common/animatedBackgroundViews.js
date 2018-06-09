@@ -26,10 +26,14 @@ export const animatedBackgroundViews = (LeftComponent, RightComponent) => {
     render() {
       return (
         <View style={styles.mainContainer}>
-          <Animated.View style={[{ marginLeft: this.leftComponentMarginLeft }, styles.animatedContainer]}>
+          <Animated.View
+            style={[{ marginLeft: this.leftComponentMarginLeft }, styles.animatedContainer]}
+          >
             {LeftComponent}
           </Animated.View>
-          <Animated.View style={[{ marginRight: this.rightComponentMarginRight }, styles.animatedContainer]}>
+          <Animated.View
+            style={[{ marginRight: this.rightComponentMarginRight }, styles.animatedContainer]}
+          >
             {RightComponent}
           </Animated.View>
         </View>
