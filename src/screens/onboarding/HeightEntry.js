@@ -16,12 +16,15 @@ import {
   TextInput,
   SegmentedControl,
   KeyboardAvoidingView,
-} from '../components/common';
-import { OnboardingRoutes } from '../components/navigation';
-import { images, textStyles } from '../assets';
-import { setHeight } from '../actions';
-import { Converter } from '../utils/Converter';
-import { MetricUnits } from '../utils/constants';
+} from '../../components/common';
+import { OnboardingRoutes } from '../../components/navigation';
+import { images, textStyles } from '../../assets';
+import { setHeight } from '../../actions';
+import { Converter } from '../../utils/Converter';
+import { MetricUnits } from '../../utils/constants';
+
+const MIN_HEIGHT = 120;
+const MAX_HEIGHT = 301;
 
 class HeightEntryScreen extends Component {
   state = {
@@ -39,6 +42,12 @@ class HeightEntryScreen extends Component {
     this.state.errorMessage !== prevState.errorMessage && LayoutAnimation.easeInEaseOut();
   }
 
+  getHeightError(centimiters) {
+    return centimiters && (centimiters < MIN_HEIGHT || centimiters > MAX_HEIGHT)
+      ? 'Please enter your real height'
+      : '';
+  }
+
   onContinueButtonPress = () => {
     Keyboard.dismiss();
     this.props.setHeight(this.state.centimiters);
@@ -46,9 +55,6 @@ class HeightEntryScreen extends Component {
   };
 
   onChangeUnits = (currentUnits) => this.setState({ currentUnits });
-
-  getHeightError = (centimiters) =>
-    centimiters && (centimiters < 120 || centimiters > 301) ? 'Please enter your real height' : '';
 
   onChangeText = (name) => (text) => {
     const height = !isNaN(text) && Number(text);
@@ -83,7 +89,7 @@ class HeightEntryScreen extends Component {
         autoFocus={true}
       />
     ) : (
-      <View style={{ flexDirection: 'row' }}>
+      <View style={styles.ftInTextInputsContainer}>
         <TextInput
           onChangeText={this.onChangeText('feet')}
           value={feet ? `${feet}` : ''}
@@ -173,6 +179,9 @@ const styles = StyleSheet.create({
     flex: 0.5,
     marginRight: 25,
     marginLeft: 12.5,
+  },
+  ftInTextInputsContainer: {
+    flexDirection: 'row',
   },
 });
 

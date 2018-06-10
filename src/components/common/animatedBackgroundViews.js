@@ -2,37 +2,38 @@ import React, { Component } from 'react';
 import { View, Animated, Dimensions, StyleSheet } from 'react-native';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
-const ANIMATION_DURATION = 1000;
+const INITIAL_TRANSLATE_X_LEFT = -SCREEN_WIDTH / 2;
 
-export const animatedBackgroundViews = (LeftComponent, RightComponent) => {
+export const animatedBackgroundViews = (duration = 1000) => (LeftComponent, RightComponent) => {
   class AnimatedBackground extends Component {
-    constructor(props) {
-      super(props);
-      this.leftComponentMarginLeft = new Animated.Value(-SCREEN_WIDTH / 2);
-      this.rightComponentMarginRight = new Animated.Value(-SCREEN_WIDTH / 2);
-    }
+    state = {
+      translateXLeftItem: new Animated.Value(INITIAL_TRANSLATE_X_LEFT),
+    };
 
     componentDidMount() {
-      Animated.timing(this.leftComponentMarginLeft, {
+      Animated.timing(this.state.translateXLeftItem, {
         toValue: 0,
-        duration: ANIMATION_DURATION,
-      }).start();
-      Animated.timing(this.rightComponentMarginRight, {
-        toValue: 0,
-        duration: ANIMATION_DURATION,
+        duration,
+        useNativeDriver: true,
       }).start();
     }
 
     render() {
+      const { translateXLeftItem } = this.state;
+      const translateXRightItem = translateXLeftItem.interpolate({
+        inputRange: [INITIAL_TRANSLATE_X_LEFT, 0],
+        outputRange: [-INITIAL_TRANSLATE_X_LEFT, 0],
+      });
+
       return (
         <View style={styles.mainContainer}>
           <Animated.View
-            style={[{ marginLeft: this.leftComponentMarginLeft }, styles.animatedContainer]}
+            style={[{ transform: [{ translateX: translateXLeftItem }] }, styles.animatedContainer]}
           >
             {LeftComponent}
           </Animated.View>
           <Animated.View
-            style={[{ marginRight: this.rightComponentMarginRight }, styles.animatedContainer]}
+            style={[{ transform: [{ translateX: translateXRightItem }] }, styles.animatedContainer]}
           >
             {RightComponent}
           </Animated.View>
@@ -43,19 +44,19 @@ export const animatedBackgroundViews = (LeftComponent, RightComponent) => {
 
   const styles = StyleSheet.create({
     mainContainer: {
-      position: 'absolute',
-      flexDirection: 'row',
       flex: 1,
       top: 0,
-      bottom: 0,
       left: 0,
       right: 0,
+      bottom: 0,
+      flexDirection: 'row',
+      position: 'absolute',
       justifyContent: 'space-between',
     },
     animatedContainer: {
-      flexDirection: 'row',
-      bottom: 0,
       top: 0,
+      bottom: 0,
+      flexDirection: 'row',
     },
   });
 

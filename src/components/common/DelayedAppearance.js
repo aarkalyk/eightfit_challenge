@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import { View, Animated } from 'react-native';
 
-const INITIAL_MARGIN_TOP = 10;
+const INITIAL_TRANSLATE_Y = 10;
 
 class DelayedAppearance extends Component {
-  constructor(props) {
-    super(props);
-    this.marginTop = new Animated.Value(INITIAL_MARGIN_TOP);
-  }
+  state = {
+    translateY: new Animated.Value(INITIAL_TRANSLATE_Y),
+  };
 
   componentDidMount() {
     this.timeout = setTimeout(() => {
-      Animated.timing(this.marginTop, {
+      Animated.timing(this.state.translateY, {
         toValue: 0,
         duration: 500,
+        useNativeDriver: true,
       }).start();
     }, this.props.delay);
   }
@@ -23,13 +23,14 @@ class DelayedAppearance extends Component {
   }
 
   render() {
-    const opacity = this.marginTop.interpolate({
-      inputRange: [0, INITIAL_MARGIN_TOP],
+    const { translateY } = this.state;
+    const opacity = translateY.interpolate({
+      inputRange: [0, INITIAL_TRANSLATE_Y],
       outputRange: [1, 0],
     });
 
     return (
-      <Animated.View style={[this.props.style, { marginTop: this.marginTop, opacity }]}>
+      <Animated.View style={[this.props.style, { opacity, transform: [{ translateY }] }]}>
         {this.props.children}
       </Animated.View>
     );

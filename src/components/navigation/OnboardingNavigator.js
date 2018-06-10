@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StackNavigator } from 'react-navigation';
 
-import { Goals, AgeEntry, HeightEntry, Confirmation } from '../../screens';
+import { Goals, AgeEntry, HeightEntry, Confirmation } from '../../screens/onboarding';
 
 export const OnboardingRoutes = {
   Goals: 'Goals',

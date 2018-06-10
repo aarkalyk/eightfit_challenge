@@ -2,29 +2,44 @@ import React, { Component } from 'react';
 import { View, Text, ImageBackground, Image, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
-import { images, colors, textStyles } from '../assets';
-import { Button, Header, animatedBackgroundViews, DelayedAppearance } from '../components/common';
-import { GoalItems } from '../utils/constants';
+import { images, colors, textStyles } from '../../assets';
+import {
+  Button,
+  Header,
+  animatedBackgroundViews,
+  DelayedAppearance,
+} from '../../components/common';
+import { GoalItems } from '../../utils/constants';
 
-const FIRST_DELAY = 100;
+const FIRST_ANIMATION_DELAY = 100;
+const ANIMATION_INTERVAL = 100;
 
 class ConfirmationScreen extends Component {
   static navigationOptions = {
     header: null,
   };
 
+  renderBackgroundImages() {
+    return animatedBackgroundViews()(
+      <Image source={images.beans} style={styles.beansImage} />,
+      <Image source={images.parsley} style={styles.parsleyImage} />,
+    );
+  }
+
+  renderTitle() {
+    return (
+      <DelayedAppearance delay={FIRST_ANIMATION_DELAY}>
+        <Text style={[styles.title, textStyles.h2]}>Confirm your details:</Text>
+      </DelayedAppearance>
+    );
+  }
+
   renderHeader = () => (
     <Header style={styles.header} onBackButtonPress={() => this.props.navigation.goBack()} />
   );
 
-  renderTitle = () => (
-    <DelayedAppearance delay={FIRST_DELAY}>
-      <Text style={[styles.title, textStyles.h2]}>Confirm your details:</Text>
-    </DelayedAppearance>
-  );
-
   renderDetailsTable = () => (
-    <DelayedAppearance delay={FIRST_DELAY + 100}>
+    <DelayedAppearance delay={FIRST_ANIMATION_DELAY + ANIMATION_INTERVAL}>
       <View style={styles.userDataContainer}>
         {Object.keys(this.props.userData).map((key, i) => {
           const borderBottomWidth = i < 2 ? 1 : 0;
@@ -45,17 +60,14 @@ class ConfirmationScreen extends Component {
   render() {
     return (
       <ImageBackground source={images.backgroundGrain} style={styles.imageBackground}>
-        {animatedBackgroundViews(
-          <Image source={images.beans} style={styles.beansImage} />,
-          <Image source={images.parsley} style={styles.parsleyImage} />,
-        )}
+        {this.renderBackgroundImages()}
         <View style={styles.mainContainer}>
           <View>
             {this.renderHeader()}
             {this.renderTitle()}
             {this.renderDetailsTable()}
           </View>
-          <DelayedAppearance delay={FIRST_DELAY + 200}>
+          <DelayedAppearance delay={FIRST_ANIMATION_DELAY + ANIMATION_INTERVAL * 2}>
             <Button title="Save" style={styles.saveButton} />
           </DelayedAppearance>
         </View>

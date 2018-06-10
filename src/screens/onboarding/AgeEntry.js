@@ -3,10 +3,13 @@ import { View, Text, Image, StyleSheet, Platform, LayoutAnimation } from 'react-
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 
-import { Button, Header, TextInput, KeyboardAvoidingView } from '../components/common';
-import { images, textStyles } from '../assets';
-import { OnboardingRoutes } from '../components/navigation';
-import { setAge } from '../actions';
+import { Button, Header, TextInput, KeyboardAvoidingView } from '../../components/common';
+import { images, textStyles } from '../../assets';
+import { OnboardingRoutes } from '../../components/navigation';
+import { setAge } from '../../actions';
+
+const MIN_AGE = 13;
+const MAX_AGE = 120;
 
 class AgeEntryScreen extends Component {
   state = {
@@ -25,16 +28,15 @@ class AgeEntryScreen extends Component {
   onChangeAge = (text) => {
     const age = !isNaN(text) && Number(text);
     const errorMessage =
-      age && age < 13
+      age && age < MIN_AGE
         ? 'You must be at least 13 years old'
-        : age > 120 ? 'Please, enter your real age' : '';
+        : age > MAX_AGE ? 'Please, enter your real age' : '';
 
     this.setState({ age, errorMessage });
   };
 
   onContinueButtonPress = () => {
-    const { age } = this.state;
-    this.props.setAge(age);
+    this.props.setAge(this.state.age);
     this.props.navigation.navigate(OnboardingRoutes.HeightEntry);
   };
 

@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: 'white',
     height: 100,
-    marginTop: 20,
+    marginBottom: 20,
+    marginTop: 4,
     paddingHorizontal: 15,
     borderRadius: 5,
     marginHorizontal: 15,
@@ -35,7 +36,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 2,
     elevation: 3,
-    marginBottom: 4,
   },
   textContainer: {
     justifyContent: 'space-evenly',
