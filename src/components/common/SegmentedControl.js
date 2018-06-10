@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TouchableWithoutFeedback, Text, StyleSheet } from 'react-native';
 
-import { colors } from '../../assets';
+import { colors, textStyles } from '../../assets';
 
 export const SegmentedControl = ({ style, titles, currentIndex, onSelect }) => (
   <View style={[styles.container, style]}>
@@ -22,7 +22,9 @@ export const SegmentedControl = ({ style, titles, currentIndex, onSelect }) => (
               styles.titleContainer,
             ]}
           >
-            <Text style={[styles.title, { color: titleColor }]}>{title}</Text>
+            <Text style={[styles.title, textStyles.bodySmall, { color: titleColor }]}>
+              {title.toUpperCase()}
+            </Text>
           </View>
         </TouchableWithoutFeedback>
       );
@@ -45,7 +47,5 @@ const styles = StyleSheet.create({
   },
   title: {
     paddingHorizontal: 20,
-    fontWeight: 'bold',
-    fontSize: 16,
   },
 });

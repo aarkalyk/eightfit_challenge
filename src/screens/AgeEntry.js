@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 
 import { Button, Header, TextInput, KeyboardAvoidingView } from '../components/common';
-import { images } from '../assets';
+import { images, textStyles } from '../assets';
 import { OnboardingRoutes } from '../components/navigation';
 import { setAge } from '../actions';
 
@@ -44,8 +44,10 @@ class AgeEntryScreen extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.inputContainer}>
-          <Text style={styles.title}>How old are you?</Text>
-          {!!errorMessage && <Text style={styles.errorText}>{errorMessage}</Text>}
+          <Text style={[styles.title, textStyles.h2]}>How old are you?</Text>
+          {!!errorMessage && (
+            <Text style={[textStyles.body, styles.errorText]}>{errorMessage}</Text>
+          )}
           <TextInput
             onChangeText={this.onChangeAge}
             value={age ? `${age}` : ''}
@@ -79,8 +81,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontSize: 20,
-    fontWeight: 'bold',
     marginTop: 26,
   },
   errorText: {
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   textInput: {
-    marginTop: 10,
+    marginTop: 20,
     marginHorizontal: 25,
   },
 });

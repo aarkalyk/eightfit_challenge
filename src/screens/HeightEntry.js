@@ -18,7 +18,7 @@ import {
   KeyboardAvoidingView,
 } from '../components/common';
 import { OnboardingRoutes } from '../components/navigation';
-import { images } from '../assets';
+import { images, textStyles } from '../assets';
 import { setHeight } from '../actions';
 import { Converter } from '../utils/Converter';
 import { MetricUnits } from '../utils/constants';
@@ -111,8 +111,10 @@ class HeightEntryScreen extends Component {
     return (
       <View style={styles.mainContainer}>
         <View style={styles.upperHalfContainer}>
-          <Text style={styles.title}>How tall are you?</Text>
-          {!!errorMessage && <Text style={styles.errorText}>{errorMessage}</Text>}
+          <Text style={[styles.title, textStyles.h2]}>How tall are you?</Text>
+          {!!errorMessage && (
+            <Text style={[textStyles.body, styles.errorText]}>{errorMessage}</Text>
+          )}
           {this.renderTextInputs()}
           <SegmentedControl
             style={styles.segmentedControl}
@@ -144,8 +146,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontSize: 20,
-    fontWeight: 'bold',
     marginTop: 26,
   },
   errorText: {
@@ -159,14 +159,17 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   cmTextInput: {
+    marginTop: 20,
     marginHorizontal: 25,
   },
   ftTextInput: {
+    marginTop: 20,
     flex: 0.5,
     marginLeft: 25,
     marginRight: 12.5,
   },
   inTextInput: {
+    marginTop: 20,
     flex: 0.5,
     marginRight: 25,
     marginLeft: 12.5,

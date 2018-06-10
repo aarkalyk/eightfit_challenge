@@ -16,7 +16,7 @@ import { OnboardingRoutes } from '../components/navigation';
 import { animatedBackgroundViews, DelayedAppearance } from '../components/common';
 import { GoalComponent } from '../components/onboarding';
 import { setGoal } from '../actions';
-import { images } from '../assets';
+import { images, textStyles } from '../assets';
 import { GoalItems } from '../utils/constants';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -73,10 +73,10 @@ class GoalsScreen extends Component {
   renderTitles = () => (
     <View style={styles.titlesContainer}>
       <DelayedAppearance delay={ICON_ANIMATON_DURATION / 2}>
-        <Text style={styles.welcomeText}>WELCOME TO 8FIT</Text>
+        <Text style={[styles.welcomeText, textStyles.bodySmall]}>WELCOME TO 8FIT</Text>
       </DelayedAppearance>
       <DelayedAppearance delay={ICON_ANIMATON_DURATION / 2 + 100}>
-        <Text style={styles.whatsYourGoalText}>{"What's your goal"}</Text>
+        <Text style={[styles.whatsYourGoalText, textStyles.h2]}>{"What's your goal"}</Text>
       </DelayedAppearance>
     </View>
   );
@@ -129,12 +129,9 @@ const styles = StyleSheet.create({
   },
   welcomeText: {
     marginTop: 8,
-    fontSize: 12,
   },
   whatsYourGoalText: {
     marginTop: 8,
-    fontSize: 26,
-    fontWeight: 'bold',
   },
   goalsContainer: {
     marginTop: 30,

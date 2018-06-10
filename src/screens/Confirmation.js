@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, ImageBackground, Image, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
-import { images, colors } from '../assets';
+import { images, colors, textStyles } from '../assets';
 import { Button, Header, animatedBackgroundViews, DelayedAppearance } from '../components/common';
 import { GoalItems } from '../utils/constants';
 
@@ -19,7 +19,7 @@ class ConfirmationScreen extends Component {
 
   renderTitle = () => (
     <DelayedAppearance delay={FIRST_DELAY}>
-      <Text style={styles.title}>Confirm your details:</Text>
+      <Text style={[styles.title, textStyles.h2]}>Confirm your details:</Text>
     </DelayedAppearance>
   );
 
@@ -31,8 +31,10 @@ class ConfirmationScreen extends Component {
 
           return (
             <View style={[styles.userDataItemContainer, { borderBottomWidth }]} key={i}>
-              <Text style={styles.userDataItemTitle}>{key}</Text>
-              <Text style={styles.userDataItemValue}>{`${this.props.userData[key]}`}</Text>
+              <Text style={textStyles.caption}>{key}</Text>
+              <Text style={[styles.userDataItemValue, textStyles.body]}>{`${
+                this.props.userData[key]
+              }`}</Text>
             </View>
           );
         })}
@@ -83,8 +85,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0,
   },
   title: {
-    fontSize: 25,
-    fontWeight: 'bold',
     alignSelf: 'center',
     marginTop: 40,
   },
@@ -107,9 +107,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-  },
-  userDataItemTitle: {
-    fontSize: 16,
   },
   userDataItemValue: {
     marginRight: 10,

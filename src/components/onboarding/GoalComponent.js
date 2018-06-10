@@ -1,14 +1,14 @@
 import React from 'react';
 import { TouchableOpacity, View, Text, Image, StyleSheet } from 'react-native';
 
-import { images, colors } from '../../assets';
+import { images, colors, textStyles } from '../../assets';
 
 export const GoalComponent = ({ onPress, goal }) => (
   <TouchableOpacity onPress={() => onPress(goal.type)}>
     <View style={styles.mainContainer}>
       <View style={styles.textContainer}>
-        <Text style={styles.title}>{goal.displayTitle}</Text>
-        <Text style={styles.subtitle}>{goal.displaySubtitle}</Text>
+        <Text style={[styles.title, textStyles.h3]}>{goal.displayTitle}</Text>
+        <Text style={[styles.subtitle, textStyles.body]}>{goal.displaySubtitle}</Text>
       </View>
       <Image source={images.chevronRight} />
     </View>
@@ -41,12 +41,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
   },
   title: {
-    fontSize: 20,
-    fontWeight: 'bold',
     marginVertical: 4,
   },
   subtitle: {
-    fontSize: 16,
     marginVertical: 4,
   },
 });

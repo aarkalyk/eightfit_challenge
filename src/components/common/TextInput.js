@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextInput, View, Text, StyleSheet, Platform } from 'react-native';
 
-import { colors } from '../../assets';
+import { colors, textStyles } from '../../assets';
 
 const MyTextInput = (props) => {
   const { title, style, hasError, ...textInputProps } = props;
@@ -9,12 +9,12 @@ const MyTextInput = (props) => {
   return (
     <View style={[styles.container, style, { borderBottomColor: hasError ? 'red' : colors.gray }]}>
       <TextInput
-        style={styles.textInput}
+        style={[styles.textInput, textStyles.h1]}
         keyboardType="numeric"
         {...textInputProps}
         underlineColorAndroid="transparent"
       />
-      <Text style={styles.title}>{title}</Text>
+      <Text style={[textStyles.bodySmall, styles.title]}>{title}</Text>
     </View>
   );
 };
@@ -27,8 +27,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   textInput: {
-    fontSize: 26,
-    fontWeight: 'bold',
     textAlign: 'right',
     height: '100%',
     flex: 0.55,
