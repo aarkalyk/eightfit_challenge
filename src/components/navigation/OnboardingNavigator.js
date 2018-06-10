@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { createStackNavigator } from 'react-navigation';
+import { StackNavigator } from 'react-navigation';
 
 import { Goals, AgeEntry, HeightEntry, Confirmation } from '../../screens';
 
@@ -10,7 +10,7 @@ export const OnboardingRoutes = {
   Confirmation: 'Confirmation',
 };
 
-export const OnboardingNavigator = createStackNavigator(
+export const OnboardingNavigator = StackNavigator(
   {
     [OnboardingRoutes.Goals]: Goals,
     [OnboardingRoutes.AgeEntry]: AgeEntry,

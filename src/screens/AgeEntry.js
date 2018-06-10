@@ -1,35 +1,25 @@
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  KeyboardAvoidingView,
-  Image,
-  StyleSheet,
-  Platform,
-  LayoutAnimation,
-} from 'react-native';
+import { View, Text, Image, StyleSheet, Platform, LayoutAnimation } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 
-import { Button, Header, TextInput } from '../components/common';
+import { Button, Header, TextInput, KeyboardAvoidingView } from '../components/common';
 import { images } from '../assets';
 import { OnboardingRoutes } from '../components/navigation';
 import { setAge } from '../actions';
 
 class AgeEntryScreen extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    header: <Header progress={0.75} onBackButtonPress={() => navigation.goBack()} />,
-  });
-
   state = {
     age: undefined,
     errorMessage: '',
   };
 
+  static navigationOptions = ({ navigation }) => ({
+    header: <Header progress={0.75} onBackButtonPress={() => navigation.goBack()} />,
+  });
+
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.errorMessage !== prevState.errorMessage) {
-      LayoutAnimation.easeInEaseOut();
-    }
+    this.state.errorMessage !== prevState.errorMessage && LayoutAnimation.easeInEaseOut();
   }
 
   onChangeAge = (text) => {
@@ -50,13 +40,12 @@ class AgeEntryScreen extends Component {
 
   render() {
     const { age, errorMessage } = this.state;
-    const keyboardBehavior = Platform.OS === 'ios' && 'position';
 
     return (
       <View style={styles.container}>
         <View style={styles.inputContainer}>
           <Text style={styles.title}>How old are you?</Text>
-          {errorMessage && <Text style={styles.errorText}>{errorMessage}</Text>}
+          {!!errorMessage && <Text style={styles.errorText}>{errorMessage}</Text>}
           <TextInput
             onChangeText={this.onChangeAge}
             value={age ? `${age}` : ''}
@@ -67,7 +56,7 @@ class AgeEntryScreen extends Component {
             autoFocus={true}
           />
         </View>
-        <KeyboardAvoidingView behavior={keyboardBehavior} keyboardVerticalOffset={64}>
+        <KeyboardAvoidingView>
           <Button
             onPress={this.onContinueButtonPress}
             disabled={!!errorMessage || !age}

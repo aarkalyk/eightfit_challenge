@@ -6,7 +6,7 @@ import { images, colors } from '../../assets';
 const marginPercentage = (progress) => `${(1.0 - progress) * 100}%`;
 
 export const Header = ({ progress, onBackButtonPress, style }) => (
-  <View style={styles.mainContainer}>
+  <View style={[styles.mainContainer, style]}>
     <View style={[styles.innerContainer, style]}>
       <TouchableOpacity onPress={onBackButtonPress} style={styles.touchableOpacity}>
         <Image source={images.leftArrow} />
@@ -20,12 +20,12 @@ const styles = StyleSheet.create({
   mainContainer: {
     height: 68,
     justifyContent: 'space-between',
+    backgroundColor: 'white',
   },
   innerContainer: {
     flex: 1,
     borderBottomColor: colors.grayLight,
     borderBottomWidth: 1,
-    backgroundColor: 'white',
     marginBottom: 3,
   },
   progressBar: {

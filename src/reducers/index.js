@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import { onboardingReducer } from './OnboardingReducer';
+import { userReducer } from './UserReducer';
 
 export const reducers = combineReducers({
-  onboarding: onboardingReducer,
+  user: userReducer,
 });

@@ -2,14 +2,21 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  KeyboardAvoidingView,
   TouchableWithoutFeedback,
   StyleSheet,
   LayoutAnimation,
+  Platform,
+  Keyboard,
 } from 'react-native';
 import { connect } from 'react-redux';
 
-import { Button, Header, TextInput, SegmentedControl } from '../components/common';
+import {
+  Button,
+  Header,
+  TextInput,
+  SegmentedControl,
+  KeyboardAvoidingView,
+} from '../components/common';
 import { OnboardingRoutes } from '../components/navigation';
 import { images } from '../assets';
 import { setHeight } from '../actions';
@@ -17,21 +24,24 @@ import { Converter } from '../utils/Converter';
 import { MetricUnits } from '../utils/constants';
 
 class HeightEntryScreen extends Component {
+  state = {
+    currentUnits: MetricUnits.cm,
+    centimiters: undefined,
+    feet: undefined,
+    inches: undefined,
+  };
+
   static navigationOptions = ({ navigation }) => ({
     header: <Header progress={1.0} onBackButtonPress={() => navigation.goBack()} />,
   });
 
-  state = { currentUnits: MetricUnits.cm };
-
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.errorMessage !== prevState.errorMessage) {
-      LayoutAnimation.easeInEaseOut();
-    }
+    this.state.errorMessage !== prevState.errorMessage && LayoutAnimation.easeInEaseOut();
   }
 
   onContinueButtonPress = () => {
-    const { centimiters } = this.state;
-    this.props.setHeight(centimiters);
+    Keyboard.dismiss();
+    this.props.setHeight(this.state.centimiters);
     this.props.navigation.navigate(OnboardingRoutes.Confirmation);
   };
 
@@ -102,7 +112,7 @@ class HeightEntryScreen extends Component {
       <View style={styles.mainContainer}>
         <View style={styles.upperHalfContainer}>
           <Text style={styles.title}>How tall are you?</Text>
-          {errorMessage && <Text style={styles.errorText}>{errorMessage}</Text>}
+          {!!errorMessage && <Text style={styles.errorText}>{errorMessage}</Text>}
           {this.renderTextInputs()}
           <SegmentedControl
             style={styles.segmentedControl}
@@ -111,7 +121,7 @@ class HeightEntryScreen extends Component {
             currentIndex={currentUnits === MetricUnits.cm ? 0 : 1}
           />
         </View>
-        <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={64}>
+        <KeyboardAvoidingView>
           <Button
             onPress={this.onContinueButtonPress}
             disabled={!!errorMessage || !this.state.centimiters}

@@ -27,9 +27,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignSelf: 'stretch',
     justifyContent: 'space-between',
-    shadowOffset: { width: 2, height: 2 },
     shadowColor: colors.black,
-    shadowOpacity: 0.2,
+    shadowOffset: {
+      width: 2,
+      height: 4,
+    },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 3,
+    marginBottom: 4,
   },
   textContainer: {
     justifyContent: 'space-evenly',

@@ -10,7 +10,7 @@ class DelayedAppearance extends Component {
   }
 
   componentDidMount() {
-    setTimeout(() => {
+    this.timeout = setTimeout(() => {
       Animated.timing(this.marginTop, {
         toValue: 0,
         duration: 500,
@@ -18,11 +18,16 @@ class DelayedAppearance extends Component {
     }, this.props.delay);
   }
 
+  componentWillUnmount() {
+    clearTimeout(this.timeout);
+  }
+
   render() {
     const opacity = this.marginTop.interpolate({
       inputRange: [0, INITIAL_MARGIN_TOP],
       outputRange: [1, 0],
     });
+
     return (
       <Animated.View style={[this.props.style, { marginTop: this.marginTop, opacity }]}>
         {this.props.children}

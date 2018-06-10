@@ -1,3 +1,0 @@
-export const SET_GOAL = 'ONBOARDING/SELECT_GOAL';
-export const SET_AGE = 'ONBOARDING/SET_AGE';
-export const SET_HEIGHT = 'ONBOARDING/SET_HEIGHT';

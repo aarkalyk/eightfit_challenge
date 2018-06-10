@@ -13,6 +13,16 @@ class ConfirmationScreen extends Component {
     header: null,
   };
 
+  renderHeader = () => (
+    <Header style={styles.header} onBackButtonPress={() => this.props.navigation.goBack()} />
+  );
+
+  renderTitle = () => (
+    <DelayedAppearance delay={FIRST_DELAY}>
+      <Text style={styles.title}>Confirm your details:</Text>
+    </DelayedAppearance>
+  );
+
   renderDetailsTable = () => (
     <DelayedAppearance delay={FIRST_DELAY + 100}>
       <View style={styles.userDataContainer}>
@@ -39,13 +49,8 @@ class ConfirmationScreen extends Component {
         )}
         <View style={styles.mainContainer}>
           <View>
-            <Header
-              style={styles.header}
-              onBackButtonPress={() => this.props.navigation.goBack()}
-            />
-            <DelayedAppearance delay={FIRST_DELAY}>
-              <Text style={styles.title}>Confirm your details:</Text>
-            </DelayedAppearance>
+            {this.renderHeader()}
+            {this.renderTitle()}
             {this.renderDetailsTable()}
           </View>
           <DelayedAppearance delay={FIRST_DELAY + 200}>
@@ -111,8 +116,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ onboarding }) => {
-  const { goalType, age, height } = onboarding;
+const mapStateToProps = ({ user }) => {
+  const { goalType, age, height } = user;
   const Goal = GoalItems[goalType].displayTitle;
   const Age = `${age} years`;
   const Height = `${height}cm`;

@@ -24,12 +24,14 @@ const SCREEN_HEIGHT = Dimensions.get('window').height;
 const ICON_ANIMATON_DURATION = 800;
 
 class GoalsScreen extends Component {
+  state = {
+    appIconMarginTop: new Animated.Value(SCREEN_HEIGHT / 2),
+  };
+
   static navigationOptions = { header: null };
 
-  appIconMarginTop = new Animated.Value(SCREEN_HEIGHT / 2);
-
   componentDidMount() {
-    Animated.timing(this.appIconMarginTop, {
+    Animated.timing(this.state.appIconMarginTop, {
       toValue: 40,
       duration: ICON_ANIMATON_DURATION,
     }).start();
@@ -42,26 +44,20 @@ class GoalsScreen extends Component {
 
   renderBackgroundImages = () =>
     animatedBackgroundViews(
-      <Image source={images.beans} style={{ alignSelf: 'center' }} />,
-      <View
-        style={{
-          alignItems: 'flex-end',
-          flex: 1,
-          justifyContent: 'flex-end',
-          marginBottom: 40,
-        }}
-      >
+      <Image source={images.beans} style={styles.beansImage} />,
+      <View style={styles.dumbellImageContainer}>
         <Image source={images.mat} />
-        <Image source={images.dumbell} style={{ position: 'absolute' }} />
+        <Image source={images.dumbell} style={styles.dumbellImage} />
       </View>,
     );
 
   renderAppIcon = () => {
-    const height = this.appIconMarginTop.interpolate({
+    const { appIconMarginTop } = this.state;
+    const height = appIconMarginTop.interpolate({
       inputRange: [40, SCREEN_HEIGHT / 2],
       outputRange: [44, 60],
     });
-    const width = this.appIconMarginTop.interpolate({
+    const width = appIconMarginTop.interpolate({
       inputRange: [40, SCREEN_HEIGHT / 2],
       outputRange: [22, 30],
     });
@@ -69,7 +65,7 @@ class GoalsScreen extends Component {
     return (
       <Animated.Image
         source={images.appIcon}
-        style={{ marginTop: this.appIconMarginTop, height, width }}
+        style={{ marginTop: appIconMarginTop, height, width }}
       />
     );
   };
@@ -87,6 +83,7 @@ class GoalsScreen extends Component {
 
   renderGoals = () => {
     let delay = ICON_ANIMATON_DURATION - 200;
+
     return (
       <View style={styles.goalsContainer}>
         {Object.keys(GoalItems).map((key, i) => {
@@ -142,6 +139,18 @@ const styles = StyleSheet.create({
   goalsContainer: {
     marginTop: 30,
     alignSelf: 'stretch',
+  },
+  dumbellImageContainer: {
+    alignItems: 'flex-end',
+    flex: 1,
+    justifyContent: 'flex-end',
+    marginBottom: 40,
+  },
+  beansImage: {
+    alignSelf: 'center',
+  },
+  dumbellImage: {
+    position: 'absolute',
   },
 });
 

@@ -1,14 +1,14 @@
-import { SET_GOAL, SET_AGE, SET_HEIGHT } from '../actions/types';
+import { ActionKey } from '../actions/UserActions';
 
 const INITIAL_STATE = {};
 
-export const onboardingReducer = (state = INITIAL_STATE, action) => {
+export const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case SET_GOAL:
+    case ActionKey.SET_GOAL:
       return { ...state, goalType: action.goalType };
-    case SET_AGE:
+    case ActionKey.SET_AGE:
       return { ...state, age: action.age };
-    case SET_HEIGHT:
+    case ActionKey.SET_HEIGHT:
       return { ...state, height: action.height };
     default:
       return state;
