@@ -1,3 +1,5 @@
+import { MetricUnits } from './constants';
+
 const cmToFeet = (cm) => {
   let inches = (cm * 0.393700787).toFixed(0);
   const feet = Math.floor(inches / 12);
@@ -10,7 +12,13 @@ const feetToCm = (feet, inches) => {
   return Math.round(cm);
 };
 
+const displayStringForHeight = (height) =>
+  height.preferredUnits === MetricUnits.cm
+    ? `${height.centimiters}cm`
+    : `${height.feet} ft ${height.inches} in`;
+
 export const Converter = {
   cmToFeet,
   feetToCm,
+  displayStringForHeight,
 };

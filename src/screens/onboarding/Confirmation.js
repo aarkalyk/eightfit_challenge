@@ -10,6 +10,7 @@ import {
   DelayedAppearance,
 } from '../../components/common';
 import { GoalItems } from '../../utils/constants';
+import { Converter } from '../../utils/Converter';
 
 const FIRST_ANIMATION_DELAY = 100;
 const ANIMATION_INTERVAL = 100;
@@ -129,7 +130,7 @@ const mapStateToProps = ({ user }) => {
   const { goalType, age, height } = user;
   const Goal = GoalItems[goalType].displayTitle;
   const Age = `${age} years`;
-  const Height = `${height}cm`;
+  const Height = Converter.displayStringForHeight(height);
 
   return {
     userData: {

@@ -28,7 +28,7 @@ const MAX_HEIGHT = 301;
 
 class HeightEntryScreen extends Component {
   state = {
-    currentUnits: MetricUnits.cm,
+    preferredUnits: MetricUnits.cm,
     centimiters: undefined,
     feet: undefined,
     inches: undefined,
@@ -50,17 +50,18 @@ class HeightEntryScreen extends Component {
 
   onContinueButtonPress = () => {
     Keyboard.dismiss();
-    this.props.setHeight(this.state.centimiters);
+    const height = { ...this.state };
+    this.props.setHeight(height);
     this.props.navigation.navigate(OnboardingRoutes.Confirmation);
   };
 
-  onChangeUnits = (currentUnits) => this.setState({ currentUnits });
+  onChangeUnits = (preferredUnits) => this.setState({ preferredUnits });
 
   onChangeText = (name) => (text) => {
     const height = !isNaN(text) && Number(text);
 
     this.setState({ [name]: height }, () => {
-      if (this.state.currentUnits === MetricUnits.cm) {
+      if (this.state.preferredUnits === MetricUnits.cm) {
         const { feet, inches } = Converter.cmToFeet(height);
         const errorMessage = this.getHeightError(height);
 
@@ -76,9 +77,9 @@ class HeightEntryScreen extends Component {
   };
 
   renderTextInputs = () => {
-    const { centimiters, currentUnits, inches, feet, errorMessage } = this.state;
+    const { centimiters, preferredUnits, inches, feet, errorMessage } = this.state;
 
-    return currentUnits === MetricUnits.cm ? (
+    return preferredUnits === MetricUnits.cm ? (
       <TextInput
         onChangeText={this.onChangeText('centimiters')}
         value={centimiters ? `${centimiters}` : ''}
@@ -112,7 +113,7 @@ class HeightEntryScreen extends Component {
   };
 
   render() {
-    const { centimiters, errorMessage, currentUnits } = this.state;
+    const { centimiters, errorMessage, preferredUnits } = this.state;
 
     return (
       <View style={styles.mainContainer}>
@@ -126,7 +127,7 @@ class HeightEntryScreen extends Component {
             style={styles.segmentedControl}
             titles={[MetricUnits.cm, MetricUnits.ft]}
             onSelect={this.onChangeUnits}
-            currentIndex={currentUnits === MetricUnits.cm ? 0 : 1}
+            currentIndex={preferredUnits === MetricUnits.cm ? 0 : 1}
           />
         </View>
         <KeyboardAvoidingView>

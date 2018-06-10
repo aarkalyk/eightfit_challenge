@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { colors, textStyles } from '../../assets';
 
 export const Button = ({ disabled, onPress, style, title }) => (
-  <TouchableOpacity disabled={disabled} onPress={onPress}>
+  <TouchableOpacity disabled={disabled} onPress={onPress} style={styles.touchableOpacity}>
     <View
       style={[
         styles.titleContainer,
@@ -18,12 +18,14 @@ export const Button = ({ disabled, onPress, style, title }) => (
 );
 
 const styles = StyleSheet.create({
+  touchableOpacity: {
+    alignSelf: 'center',
+  },
   titleContainer: {
     borderRadius: 22,
     height: 44,
     alignItems: 'center',
     justifyContent: 'center',
-    alignSelf: 'center',
   },
   title: {
     color: 'white',
