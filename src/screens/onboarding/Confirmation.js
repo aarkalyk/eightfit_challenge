@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, ImageBackground, Image, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { images, colors, textStyles } from '../../assets';
 import {
@@ -36,7 +37,10 @@ class ConfirmationScreen extends Component {
   }
 
   renderHeader = () => (
-    <Header style={styles.header} onBackButtonPress={() => this.props.navigation.goBack()} />
+    <Header
+      style={StyleSheet.flatten(styles.header)}
+      onBackButtonPress={() => this.props.navigation.goBack()}
+    />
   );
 
   renderDetailsTable = () => (
@@ -69,7 +73,7 @@ class ConfirmationScreen extends Component {
             {this.renderDetailsTable()}
           </View>
           <DelayedAppearance delay={FIRST_ANIMATION_DELAY + ANIMATION_INTERVAL * 2}>
-            <Button title="Save" style={styles.saveButton} />
+            <Button title="Save" style={StyleSheet.flatten(styles.saveButton)} />
           </DelayedAppearance>
         </View>
       </ImageBackground>
@@ -125,6 +129,14 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
 });
+
+ConfirmationScreen.propTypes = {
+  userData: PropTypes.shape({
+    Goal: PropTypes.string,
+    Age: PropTypes.string,
+    Height: PropTypes.string,
+  }),
+};
 
 const mapStateToProps = ({ user }) => {
   const { goalType, age, height } = user;

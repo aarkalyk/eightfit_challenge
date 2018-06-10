@@ -1,5 +1,6 @@
 import React from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
+import PropTypes from 'prop-types';
 
 const MyKeyboardAvoidingView = (props) => (
   <KeyboardAvoidingView
@@ -9,5 +10,9 @@ const MyKeyboardAvoidingView = (props) => (
     {props.children}
   </KeyboardAvoidingView>
 );
+
+MyKeyboardAvoidingView.propTypes = {
+  children: PropTypes.element,
+};
 
 export { MyKeyboardAvoidingView as KeyboardAvoidingView };

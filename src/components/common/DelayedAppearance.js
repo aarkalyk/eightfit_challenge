@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Animated } from 'react-native';
+import PropTypes from 'prop-types';
 
 const INITIAL_TRANSLATE_Y = 10;
 
@@ -36,5 +37,9 @@ class DelayedAppearance extends Component {
     );
   }
 }
+
+DelayedAppearance.propTypes = {
+  children: PropTypes.element,
+};
 
 export { DelayedAppearance };

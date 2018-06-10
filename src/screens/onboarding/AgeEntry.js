@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, Platform, LayoutAnimation } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
+import PropTypes from 'prop-types';
 
 import { Button, Header, TextInput, KeyboardAvoidingView } from '../../components/common';
 import { images, textStyles } from '../../assets';
@@ -54,7 +55,7 @@ class AgeEntryScreen extends Component {
             onChangeText={this.onChangeAge}
             value={age ? `${age}` : ''}
             title={'Years'}
-            style={styles.textInput}
+            style={StyleSheet.flatten(styles.textInput)}
             maxLength={3}
             hasError={!!errorMessage}
             autoFocus={true}
@@ -94,5 +95,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 25,
   },
 });
+
+AgeEntryScreen.propTypes = {
+  setAge: PropTypes.func,
+  navigation: PropTypes.object,
+};
 
 export const AgeEntry = connect(null, { setAge })(AgeEntryScreen);

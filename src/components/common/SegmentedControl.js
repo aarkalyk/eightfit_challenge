@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, TouchableWithoutFeedback, Text, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
 
 import { colors, textStyles } from '../../assets';
 
@@ -31,6 +32,13 @@ export const SegmentedControl = ({ style, titles, currentIndex, onSelect }) => (
     })}
   </View>
 );
+
+SegmentedControl.propTypes = {
+  style: PropTypes.object,
+  title: PropTypes.string,
+  currentIndex: PropTypes.number,
+  onSelect: PropTypes.func,
+};
 
 const styles = StyleSheet.create({
   container: {

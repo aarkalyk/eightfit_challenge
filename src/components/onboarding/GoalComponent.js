@@ -1,19 +1,29 @@
 import React from 'react';
 import { TouchableOpacity, View, Text, Image, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
 
 import { images, colors, textStyles } from '../../assets';
 
-export const GoalComponent = ({ onPress, goal }) => (
-  <TouchableOpacity onPress={() => onPress(goal.type)}>
+export const GoalComponent = ({ onPress, goalItem }) => (
+  <TouchableOpacity onPress={() => onPress(goalItem.type)}>
     <View style={styles.mainContainer}>
       <View style={styles.textContainer}>
-        <Text style={[styles.title, textStyles.h3]}>{goal.displayTitle}</Text>
-        <Text style={[styles.subtitle, textStyles.body]}>{goal.displaySubtitle}</Text>
+        <Text style={[styles.title, textStyles.h3]}>{goalItem.displayTitle}</Text>
+        <Text style={[styles.subtitle, textStyles.body]}>{goalItem.displaySubtitle}</Text>
       </View>
       <Image source={images.chevronRight} />
     </View>
   </TouchableOpacity>
 );
+
+GoalComponent.propTypes = {
+  onPress: PropTypes.func,
+  goalItem: PropTypes.shape({
+    type: PropTypes.string,
+    displayTitle: PropTypes.string,
+    displaySubtitle: PropTypes.string,
+  }),
+};
 
 const styles = StyleSheet.create({
   mainContainer: {

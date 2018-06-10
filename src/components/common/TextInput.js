@@ -1,5 +1,6 @@
 import React from 'react';
 import { TextInput, View, Text, StyleSheet, Platform } from 'react-native';
+import PropTypes from 'prop-types';
 
 import { colors, textStyles } from '../../assets';
 
@@ -17,6 +18,12 @@ const MyTextInput = (props) => {
       <Text style={[textStyles.bodySmall, styles.title]}>{title}</Text>
     </View>
   );
+};
+
+MyTextInput.propTypes = {
+  title: PropTypes.string,
+  style: PropTypes.object,
+  hasError: PropTypes.bool,
 };
 
 const styles = StyleSheet.create({

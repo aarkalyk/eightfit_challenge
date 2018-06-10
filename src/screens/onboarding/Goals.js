@@ -11,6 +11,7 @@ import {
   Animated,
 } from 'react-native';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { OnboardingRoutes } from '../../components/navigation';
 import { animatedBackgroundViews, DelayedAppearance } from '../../components/common';
@@ -94,12 +95,12 @@ class GoalsScreen extends Component {
     return (
       <View style={styles.goalsContainer}>
         {Object.keys(GoalItems).map((key, i) => {
-          const goal = GoalItems[key];
+          const goalItem = GoalItems[key];
           delay += ANIMATION_INTERVAL;
 
           return (
             <DelayedAppearance delay={delay} key={i}>
-              <GoalComponent onPress={this.onGoalItemPress} goal={goal} />
+              <GoalComponent onPress={this.onGoalItemPress} goalItem={goalItem} />
             </DelayedAppearance>
           );
         })}
@@ -158,5 +159,10 @@ const styles = StyleSheet.create({
     left: 0,
   },
 });
+
+GoalsScreen.propTypes = {
+  setGoal: PropTypes.func,
+  navigation: PropTypes.object,
+};
 
 export const Goals = connect(null, { setGoal })(GoalsScreen);

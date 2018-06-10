@@ -9,6 +9,7 @@ import {
   Keyboard,
 } from 'react-native';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import {
   Button,
@@ -84,7 +85,7 @@ class HeightEntryScreen extends Component {
         onChangeText={this.onChangeText('centimiters')}
         value={centimiters ? `${centimiters}` : ''}
         title="Cm"
-        style={styles.cmTextInput}
+        style={StyleSheet.flatten(styles.cmTextInput)}
         maxLength={3}
         hasError={!!errorMessage}
         autoFocus={true}
@@ -95,7 +96,7 @@ class HeightEntryScreen extends Component {
           onChangeText={this.onChangeText('feet')}
           value={feet ? `${feet}` : ''}
           title="Ft"
-          style={styles.ftTextInput}
+          style={StyleSheet.flatten(styles.ftTextInput)}
           maxLength={1}
           hasError={!!errorMessage}
           autoFocus
@@ -104,7 +105,7 @@ class HeightEntryScreen extends Component {
           onChangeText={this.onChangeText('inches')}
           value={inches ? `${inches}` : ''}
           title="In"
-          style={styles.inTextInput}
+          style={StyleSheet.flatten(styles.inTextInput)}
           maxLength={2}
           hasError={!!errorMessage}
         />
@@ -124,7 +125,7 @@ class HeightEntryScreen extends Component {
           )}
           {this.renderTextInputs()}
           <SegmentedControl
-            style={styles.segmentedControl}
+            style={StyleSheet.flatten(styles.segmentedControl)}
             titles={[MetricUnits.cm, MetricUnits.ft]}
             onSelect={this.onChangeUnits}
             currentIndex={preferredUnits === MetricUnits.cm ? 0 : 1}
@@ -135,7 +136,7 @@ class HeightEntryScreen extends Component {
             onPress={this.onContinueButtonPress}
             disabled={!!errorMessage || !this.state.centimiters}
             title="Continue"
-            style={styles.continueButton}
+            style={StyleSheet.flatten(styles.continueButton)}
           />
         </KeyboardAvoidingView>
       </View>
@@ -185,5 +186,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 });
+
+HeightEntryScreen.propTypes = {
+  setHeight: PropTypes.func,
+  navigation: PropTypes.object,
+};
 
 export const HeightEntry = connect(null, { setHeight })(HeightEntryScreen);

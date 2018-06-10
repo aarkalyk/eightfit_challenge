@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import PropTypes from 'prop-types';
 
 import { images, colors } from '../../assets';
 
@@ -15,6 +16,12 @@ export const Header = ({ progress, onBackButtonPress, style }) => (
     {progress && <View style={[styles.progressBar, { marginRight: marginPercentage(progress) }]} />}
   </View>
 );
+
+Header.propTypes = {
+  progress: PropTypes.number,
+  onBackButtonPress: PropTypes.func,
+  style: PropTypes.object,
+};
 
 const styles = StyleSheet.create({
   mainContainer: {
