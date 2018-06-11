@@ -1,0 +1,39 @@
+# 8fit onboarding process
+
+This project is a clone of an onboarding process of a popular fitness app **8fit**.
+
+## Running
+
+Install dependencies:
+
+```
+npm install
+```
+
+### iOS:
+
+Run the app:
+
+```
+npm run ios
+```
+
+If you prefer Xcode rather than command line:
+
+* open `./ios/CloserMobileAgent.xcodeproj` in Xcode
+* select a simulator or a device
+* hit the Run button
+
+### Android:
+
+Have an Android emulator running (quickest way to get started), or a device connected
+
+Run the app:
+
+```
+npm run android
+```
+
+## Thoughts on the task
+
+I think the task went pretty good overall. Had a lot of fun working on it, especially on the animations. It was awesome to see how `android` app went from laggy to super smooth instantly after introducing `nativeDriver` to animations 😍 I never noticed before. I've also created a couple of reusable components which I'm already planning to use in future projects. So I killed two 🐦 with one 🗿, and a lot of 🐞 along the way :) Although it looks pretty good, I think there's still room for improvement. For instance, `AgeEntry` and `HeightEntry` screens look suspiciously similar 🤔 I think they could share some more code between each other. Open for suggestions 🤗
