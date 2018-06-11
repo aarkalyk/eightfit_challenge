@@ -24,7 +24,7 @@ import { setHeight } from '../../actions';
 import { Converter } from '../../utils/Converter';
 import { MetricUnits } from '../../utils/constants';
 
-const MIN_HEIGHT = 120;
+const MIN_HEIGHT = 125;
 const MAX_HEIGHT = 301;
 const propTypes = {
   setHeight: PropTypes.func,
