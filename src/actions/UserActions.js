@@ -4,9 +4,9 @@ export const ActionKey = {
   SET_HEIGHT: 'USER/SET_HEIGHT',
 };
 
-export const setGoal = (goalType) => ({
+export const setGoal = (goal) => ({
   type: ActionKey.SET_GOAL,
-  goalType,
+  goal,
 });
 
 export const setAge = (age) => ({

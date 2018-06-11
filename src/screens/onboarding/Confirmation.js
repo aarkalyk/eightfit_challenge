@@ -137,8 +137,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = ({ user }) => {
-  const { goalType, age, height } = user;
-  const Goal = GoalItems[goalType].displayTitle;
+  const { goal, age, height } = user;
+  const Goal = GoalItems[goal].displayTitle;
   const Age = `${age} years`;
   const Height = Converter.displayStringForHeight(height);
 
