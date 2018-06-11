@@ -3,6 +3,7 @@ import { TouchableOpacity, View, Text, Image, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 
 import { images, colors, textStyles } from '../../assets';
+import { GoalTypes } from '../../utils/constants';
 
 export const GoalComponent = ({ onPress, goalItem }) => (
   <TouchableOpacity onPress={() => onPress(goalItem.type)}>
@@ -19,7 +20,7 @@ export const GoalComponent = ({ onPress, goalItem }) => (
 GoalComponent.propTypes = {
   onPress: PropTypes.func,
   goalItem: PropTypes.shape({
-    type: PropTypes.string,
+    type: PropTypes.oneOf([GoalTypes.getFitter, GoalTypes.loseWeight, GoalTypes.gainMuscle]),
     displayTitle: PropTypes.string,
     displaySubtitle: PropTypes.string,
   }),
