@@ -55,8 +55,8 @@ class HeightEntryScreen extends Component {
 
   onContinueButtonPress = () => {
     Keyboard.dismiss();
-    const height = { ...this.state };
-    this.props.setHeight(height);
+    const { preferredUnits, centimiters } = this.state;
+    this.props.setHeight({ preferredUnits, valueInCm: centimiters });
     this.props.navigation.navigate(OnboardingRoutes.Confirmation);
   };
 

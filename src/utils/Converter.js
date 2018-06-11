@@ -12,10 +12,14 @@ const feetToCm = (feet, inches) => {
   return Math.round(cm);
 };
 
-const displayStringForHeight = (height) =>
-  height.preferredUnits === MetricUnits.cm
-    ? `${height.centimiters}cm`
-    : `${height.feet} ft ${height.inches} in`;
+const displayStringForHeight = (height) => {
+  if (height.preferredUnits === MetricUnits.cm) {
+    return `${height.valueInCm}cm`;
+  }
+
+  const { feet, inches } = cmToFeet(height.valueInCm);
+  return `${feet} ft ${inches} in`;
+};
 
 export const Converter = {
   cmToFeet,

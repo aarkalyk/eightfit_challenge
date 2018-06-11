@@ -5,9 +5,7 @@ const INITIAL_STATE = {
   age: undefined,
   height: {
     preferredUnits: '', // cm | ft
-    centimeters: undefined,
-    feet: undefined,
-    inches: undefined,
+    valueInCm: undefined,
   },
 };
 
