@@ -20,17 +20,20 @@ import { setGoal } from '../../actions';
 import { images, textStyles } from '../../assets';
 import { GoalItems } from '../../utils/constants';
 
-const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const ICON_ANIMATON_DURATION = 700;
 const ANIMATION_INTERVAL = 100;
+const propTypes = {
+  setGoal: PropTypes.func,
+  navigation: PropTypes.object,
+};
 
 class GoalsScreen extends Component {
+  static navigationOptions = { header: null };
+
   state = {
     appIconTransateY: new Animated.Value(SCREEN_HEIGHT / 2),
   };
-
-  static navigationOptions = { header: null };
 
   componentDidMount() {
     Animated.timing(this.state.appIconTransateY, {
@@ -122,6 +125,8 @@ class GoalsScreen extends Component {
   }
 }
 
+GoalsScreen.propTypes = propTypes;
+
 const styles = StyleSheet.create({
   backgroundGrain: {
     flex: 1,
@@ -159,10 +164,5 @@ const styles = StyleSheet.create({
     left: 0,
   },
 });
-
-GoalsScreen.propTypes = {
-  setGoal: PropTypes.func,
-  navigation: PropTypes.object,
-};
 
 export const Goals = connect(null, { setGoal })(GoalsScreen);

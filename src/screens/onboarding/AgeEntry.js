@@ -11,16 +11,20 @@ import { setAge } from '../../actions';
 
 const MIN_AGE = 13;
 const MAX_AGE = 120;
+const propTypes = {
+  setAge: PropTypes.func,
+  navigation: PropTypes.object,
+};
 
 class AgeEntryScreen extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    header: <Header progress={0.75} onBackButtonPress={() => navigation.goBack()} />,
+  });
+
   state = {
     age: undefined,
     errorMessage: '',
   };
-
-  static navigationOptions = ({ navigation }) => ({
-    header: <Header progress={0.75} onBackButtonPress={() => navigation.goBack()} />,
-  });
 
   componentDidUpdate(prevProps, prevState) {
     this.state.errorMessage !== prevState.errorMessage && LayoutAnimation.easeInEaseOut();
@@ -74,6 +78,8 @@ class AgeEntryScreen extends Component {
   }
 }
 
+AgeEntryScreen.propTypes = propTypes;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -95,10 +101,5 @@ const styles = StyleSheet.create({
     marginHorizontal: 25,
   },
 });
-
-AgeEntryScreen.propTypes = {
-  setAge: PropTypes.func,
-  navigation: PropTypes.object,
-};
 
 export const AgeEntry = connect(null, { setAge })(AgeEntryScreen);

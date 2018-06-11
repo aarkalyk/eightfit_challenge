@@ -26,18 +26,22 @@ import { MetricUnits } from '../../utils/constants';
 
 const MIN_HEIGHT = 120;
 const MAX_HEIGHT = 301;
+const propTypes = {
+  setHeight: PropTypes.func,
+  navigation: PropTypes.object,
+};
 
 class HeightEntryScreen extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    header: <Header progress={1.0} onBackButtonPress={() => navigation.goBack()} />,
+  });
+
   state = {
     preferredUnits: MetricUnits.cm,
     centimiters: undefined,
     feet: undefined,
     inches: undefined,
   };
-
-  static navigationOptions = ({ navigation }) => ({
-    header: <Header progress={1.0} onBackButtonPress={() => navigation.goBack()} />,
-  });
 
   componentDidUpdate(prevProps, prevState) {
     this.state.errorMessage !== prevState.errorMessage && LayoutAnimation.easeInEaseOut();
@@ -144,6 +148,8 @@ class HeightEntryScreen extends Component {
   }
 }
 
+HeightEntryScreen.propTypes = propTypes;
+
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
@@ -186,10 +192,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 });
-
-HeightEntryScreen.propTypes = {
-  setHeight: PropTypes.func,
-  navigation: PropTypes.object,
-};
 
 export const HeightEntry = connect(null, { setHeight })(HeightEntryScreen);

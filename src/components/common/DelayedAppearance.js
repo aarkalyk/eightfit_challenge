@@ -3,6 +3,9 @@ import { View, Animated } from 'react-native';
 import PropTypes from 'prop-types';
 
 const INITIAL_TRANSLATE_Y = 10;
+const propTypes = {
+  children: PropTypes.element,
+};
 
 class DelayedAppearance extends Component {
   state = {
@@ -38,8 +41,6 @@ class DelayedAppearance extends Component {
   }
 }
 
-DelayedAppearance.propTypes = {
-  children: PropTypes.element,
-};
+DelayedAppearance.propTypes = propTypes;
 
 export { DelayedAppearance };

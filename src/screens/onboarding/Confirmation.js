@@ -15,6 +15,13 @@ import { Converter } from '../../utils/Converter';
 
 const FIRST_ANIMATION_DELAY = 100;
 const ANIMATION_INTERVAL = 100;
+const propTypes = {
+  userData: PropTypes.shape({
+    Goal: PropTypes.string,
+    Age: PropTypes.string,
+    Height: PropTypes.string,
+  }),
+};
 
 class ConfirmationScreen extends Component {
   static navigationOptions = {
@@ -81,6 +88,8 @@ class ConfirmationScreen extends Component {
   }
 }
 
+ConfirmationScreen.propTypes = propTypes;
+
 const styles = StyleSheet.create({
   imageBackground: {
     flex: 1,
@@ -129,14 +138,6 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
 });
-
-ConfirmationScreen.propTypes = {
-  userData: PropTypes.shape({
-    Goal: PropTypes.string,
-    Age: PropTypes.string,
-    Height: PropTypes.string,
-  }),
-};
 
 const mapStateToProps = ({ user }) => {
   const { goalType, age, height } = user;
