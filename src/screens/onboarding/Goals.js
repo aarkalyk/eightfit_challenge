@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
   dumbellImageContainer: {
     alignItems: 'flex-end',
     justifyContent: 'flex-end',
-    marginBottom: 40,
+    marginBottom: 10,
     overflow: 'visible',
   },
   beansImage: {
