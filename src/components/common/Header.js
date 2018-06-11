@@ -5,6 +5,11 @@ import PropTypes from 'prop-types';
 import { images, colors } from '../../assets';
 
 const marginPercentage = (progress) => `${(1.0 - progress) * 100}%`;
+const propTypes = {
+  progress: PropTypes.number,
+  onBackButtonPress: PropTypes.func,
+  style: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
+};
 
 export const Header = ({ progress, onBackButtonPress, style }) => (
   <View style={[styles.mainContainer, style]}>
@@ -17,11 +22,7 @@ export const Header = ({ progress, onBackButtonPress, style }) => (
   </View>
 );
 
-Header.propTypes = {
-  progress: PropTypes.number,
-  onBackButtonPress: PropTypes.func,
-  style: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
-};
+Header.propTypes = propTypes;
 
 const styles = StyleSheet.create({
   mainContainer: {

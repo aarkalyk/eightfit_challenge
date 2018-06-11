@@ -65,7 +65,7 @@ class GoalsScreen extends Component {
           <Text style={[styles.welcomeText, textStyles.bodySmall]}>WELCOME TO 8FIT</Text>
         </DelayedAppearance>
         <DelayedAppearance delay={ICON_ANIMATON_DURATION}>
-          <Text style={[styles.whatsYourGoalText, textStyles.h2]}>{"What's your goal"}</Text>
+          <Text style={[styles.whatsYourGoalText, textStyles.h2]}>{"What's your goal?"}</Text>
         </DelayedAppearance>
       </View>
     );

@@ -4,6 +4,13 @@ import PropTypes from 'prop-types';
 
 import { colors, textStyles } from '../../assets';
 
+const propTypes = {
+  style: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
+  title: PropTypes.string,
+  currentIndex: PropTypes.number,
+  onSelect: PropTypes.func,
+};
+
 export const SegmentedControl = ({ style, titles, currentIndex, onSelect }) => (
   <View style={[styles.container, style]}>
     {titles.map((title, i) => {
@@ -33,12 +40,7 @@ export const SegmentedControl = ({ style, titles, currentIndex, onSelect }) => (
   </View>
 );
 
-SegmentedControl.propTypes = {
-  style: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
-  title: PropTypes.string,
-  currentIndex: PropTypes.number,
-  onSelect: PropTypes.func,
-};
+SegmentedControl.propTypes = propTypes;
 
 const styles = StyleSheet.create({
   container: {

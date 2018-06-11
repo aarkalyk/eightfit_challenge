@@ -34,7 +34,7 @@ class AgeEntryScreen extends Component {
     const age = !isNaN(text) && Number(text);
     const errorMessage =
       age && age < MIN_AGE
-        ? 'You must be at least 13 years old'
+        ? `You must be at least ${MIN_AGE} years old`
         : age > MAX_AGE ? 'Please, enter your real age' : '';
 
     this.setState({ age, errorMessage });

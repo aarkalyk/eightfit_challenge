@@ -4,6 +4,13 @@ import PropTypes from 'prop-types';
 
 import { colors, textStyles } from '../../assets';
 
+const propTypes = {
+  disabled: PropTypes.bool,
+  onPress: PropTypes.func,
+  style: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
+  title: PropTypes.string,
+};
+
 export const Button = ({ disabled, onPress, style, title }) => (
   <TouchableOpacity disabled={disabled} onPress={onPress} style={styles.touchableOpacity}>
     <View
@@ -18,12 +25,7 @@ export const Button = ({ disabled, onPress, style, title }) => (
   </TouchableOpacity>
 );
 
-Button.propTypes = {
-  disabled: PropTypes.bool,
-  onPress: PropTypes.func,
-  style: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
-  title: PropTypes.string,
-};
+Button.propTypes = propTypes;
 
 const styles = StyleSheet.create({
   touchableOpacity: {

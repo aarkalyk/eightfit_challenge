@@ -130,9 +130,9 @@ class HeightEntryScreen extends Component {
           {this.renderTextInputs()}
           <SegmentedControl
             style={styles.segmentedControl}
-            titles={[MetricUnits.cm, MetricUnits.ft]}
+            titles={[MetricUnits.ft, MetricUnits.cm]}
             onSelect={this.onChangeUnits}
-            currentIndex={preferredUnits === MetricUnits.cm ? 0 : 1}
+            currentIndex={preferredUnits === MetricUnits.cm ? 1 : 0}
           />
         </View>
         <KeyboardAvoidingView>

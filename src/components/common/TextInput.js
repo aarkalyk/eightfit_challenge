@@ -4,6 +4,12 @@ import PropTypes from 'prop-types';
 
 import { colors, textStyles } from '../../assets';
 
+const propTypes = {
+  title: PropTypes.string,
+  style: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
+  hasError: PropTypes.bool,
+};
+
 const MyTextInput = (props) => {
   const { title, style, hasError, ...textInputProps } = props;
 
@@ -20,11 +26,7 @@ const MyTextInput = (props) => {
   );
 };
 
-MyTextInput.propTypes = {
-  title: PropTypes.string,
-  style: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
-  hasError: PropTypes.bool,
-};
+MyTextInput.propTypes = propTypes;
 
 const styles = StyleSheet.create({
   container: {
