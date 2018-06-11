@@ -21,7 +21,7 @@ export const Button = ({ disabled, onPress, style, title }) => (
 Button.propTypes = {
   disabled: PropTypes.bool,
   onPress: PropTypes.func,
-  style: PropTypes.object,
+  style: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
   title: PropTypes.string,
 };
 

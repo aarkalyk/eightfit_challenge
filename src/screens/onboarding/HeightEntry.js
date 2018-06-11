@@ -89,7 +89,7 @@ class HeightEntryScreen extends Component {
         onChangeText={this.onChangeText('centimiters')}
         value={centimiters ? `${centimiters}` : ''}
         title="Cm"
-        style={StyleSheet.flatten(styles.cmTextInput)}
+        style={styles.cmTextInput}
         maxLength={3}
         hasError={!!errorMessage}
         autoFocus={true}
@@ -100,7 +100,7 @@ class HeightEntryScreen extends Component {
           onChangeText={this.onChangeText('feet')}
           value={feet ? `${feet}` : ''}
           title="Ft"
-          style={StyleSheet.flatten(styles.ftTextInput)}
+          style={styles.ftTextInput}
           maxLength={1}
           hasError={!!errorMessage}
           autoFocus
@@ -109,7 +109,7 @@ class HeightEntryScreen extends Component {
           onChangeText={this.onChangeText('inches')}
           value={inches ? `${inches}` : ''}
           title="In"
-          style={StyleSheet.flatten(styles.inTextInput)}
+          style={styles.inTextInput}
           maxLength={2}
           hasError={!!errorMessage}
         />
@@ -129,7 +129,7 @@ class HeightEntryScreen extends Component {
           )}
           {this.renderTextInputs()}
           <SegmentedControl
-            style={StyleSheet.flatten(styles.segmentedControl)}
+            style={styles.segmentedControl}
             titles={[MetricUnits.cm, MetricUnits.ft]}
             onSelect={this.onChangeUnits}
             currentIndex={preferredUnits === MetricUnits.cm ? 0 : 1}
@@ -140,7 +140,7 @@ class HeightEntryScreen extends Component {
             onPress={this.onContinueButtonPress}
             disabled={!!errorMessage || !this.state.centimiters}
             title="Continue"
-            style={StyleSheet.flatten(styles.continueButton)}
+            style={styles.continueButton}
           />
         </KeyboardAvoidingView>
       </View>

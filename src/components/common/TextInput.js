@@ -22,7 +22,7 @@ const MyTextInput = (props) => {
 
 MyTextInput.propTypes = {
   title: PropTypes.string,
-  style: PropTypes.object,
+  style: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
   hasError: PropTypes.bool,
 };
 

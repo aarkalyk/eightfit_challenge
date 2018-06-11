@@ -34,7 +34,7 @@ export const SegmentedControl = ({ style, titles, currentIndex, onSelect }) => (
 );
 
 SegmentedControl.propTypes = {
-  style: PropTypes.object,
+  style: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
   title: PropTypes.string,
   currentIndex: PropTypes.number,
   onSelect: PropTypes.func,

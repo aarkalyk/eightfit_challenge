@@ -20,7 +20,7 @@ export const Header = ({ progress, onBackButtonPress, style }) => (
 Header.propTypes = {
   progress: PropTypes.number,
   onBackButtonPress: PropTypes.func,
-  style: PropTypes.object,
+  style: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
 };
 
 const styles = StyleSheet.create({

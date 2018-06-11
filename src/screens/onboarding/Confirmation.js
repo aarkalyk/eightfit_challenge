@@ -44,10 +44,7 @@ class ConfirmationScreen extends Component {
   }
 
   renderHeader = () => (
-    <Header
-      style={StyleSheet.flatten(styles.header)}
-      onBackButtonPress={() => this.props.navigation.goBack()}
-    />
+    <Header style={styles.header} onBackButtonPress={() => this.props.navigation.goBack()} />
   );
 
   renderDetailsTable = () => (
@@ -80,7 +77,7 @@ class ConfirmationScreen extends Component {
             {this.renderDetailsTable()}
           </View>
           <DelayedAppearance delay={FIRST_ANIMATION_DELAY + ANIMATION_INTERVAL * 2}>
-            <Button title="Save" style={StyleSheet.flatten(styles.saveButton)} />
+            <Button title="Save" style={styles.saveButton} />
           </DelayedAppearance>
         </View>
       </ImageBackground>

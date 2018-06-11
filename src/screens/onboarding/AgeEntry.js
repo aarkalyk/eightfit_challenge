@@ -59,7 +59,7 @@ class AgeEntryScreen extends Component {
             onChangeText={this.onChangeAge}
             value={age ? `${age}` : ''}
             title={'Years'}
-            style={StyleSheet.flatten(styles.textInput)}
+            style={styles.textInput}
             maxLength={3}
             hasError={!!errorMessage}
             autoFocus={true}
@@ -70,7 +70,7 @@ class AgeEntryScreen extends Component {
             onPress={this.onContinueButtonPress}
             disabled={!!errorMessage || !age}
             title="Continue"
-            style={{ marginBottom: 20 }}
+            style={styles.continueButton}
           />
         </KeyboardAvoidingView>
       </View>
@@ -99,6 +99,9 @@ const styles = StyleSheet.create({
   textInput: {
     marginTop: 20,
     marginHorizontal: 25,
+  },
+  continueButton: {
+    marginBottom: 20,
   },
 });
 
