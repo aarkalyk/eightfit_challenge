@@ -12,16 +12,17 @@ const propTypes = {
 
 const MyTextInput = (props) => {
   const { title, style, hasError, ...textInputProps } = props;
+  const textInputStyle = !title && { flex: 1, textAlign: 'center' };
 
   return (
     <View style={[styles.container, style, { borderBottomColor: hasError ? 'red' : colors.gray }]}>
       <TextInput
-        style={[styles.textInput, textStyles.h1]}
+        style={[styles.textInput, textStyles.h1, textInputStyle]}
         keyboardType="numeric"
         {...textInputProps}
         underlineColorAndroid="transparent"
       />
-      <Text style={[textStyles.bodySmall, styles.title]}>{title}</Text>
+      {!!title && <Text style={[textStyles.bodySmall, styles.title]}>{title}</Text>}
     </View>
   );
 };

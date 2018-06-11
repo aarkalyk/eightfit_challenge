@@ -58,7 +58,6 @@ class AgeEntryScreen extends Component {
           <TextInput
             onChangeText={this.onChangeAge}
             value={age ? `${age}` : ''}
-            title={'Years'}
             style={styles.textInput}
             maxLength={3}
             hasError={!!errorMessage}
