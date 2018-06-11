@@ -7,7 +7,13 @@ This project is a clone of an onboarding process of a popular fitness app **8fit
 Install dependencies:
 
 ```
-npm install
+npm i
+```
+
+Start packager:
+
+```
+npm start
 ```
 
 ### iOS:
@@ -36,4 +42,4 @@ npm run android
 
 ## Thoughts on the task
 
-I think the task went pretty good overall. Had a lot of fun working on it, especially on the animations. It was awesome to see how `android` app went from laggy to super smooth instantly after introducing `nativeDriver` to animations 😍 I never noticed it before. I've also created a couple of reusable components which I'm already planning to use in future projects. So I killed two 🐦 with one 🗿, and a lot of 🐞 along the way :) Although it looks pretty good, I think there's still room for improvement. For instance, `AgeEntry` and `HeightEntry` screens look suspiciously similar 🤔 I think they could share some more code between each other. Open for suggestions 🤗
+I think the task went pretty good overall. Had a lot of fun working on it, especially on the animations. It was awesome to see how `android` app went from laggy to super smooth instantly after introducing `nativeDriver`😍 I never noticed it before. I've also created a couple of reusable components which I'm already planning to use in future projects. So I killed two 🐦 with one 🗿, and a lot of 🐞 along the way :) Although it looks pretty good, I think there's still room for improvement. For instance, `AgeEntry` and `HeightEntry` screens look suspiciously similar 🤔 I think they could share some more code between each other. Open to suggestions 🤗
