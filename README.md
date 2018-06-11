@@ -26,7 +26,7 @@ npm run ios
 
 If you prefer Xcode rather than command line:
 
-* open `./ios/CloserMobileAgent.xcodeproj` in Xcode
+* open `./ios/eightfit.xcodeproj` in Xcode
 * select a simulator or a device
 * hit the Run button
 
