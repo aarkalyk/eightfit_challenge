@@ -1,5 +1,5 @@
 export const ActionKey = {
-  SET_GOAL: 'USER/SELECT_GOAL',
+  SET_GOAL: 'USER/SET_GOAL',
   SET_AGE: 'USER/SET_AGE',
   SET_HEIGHT: 'USER/SET_HEIGHT',
 };
