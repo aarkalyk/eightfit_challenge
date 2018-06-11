@@ -21,8 +21,8 @@ import { images, textStyles } from '../../assets';
 import { GoalItems } from '../../utils/constants';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
-const ICON_ANIMATON_DURATION = 700;
-const ANIMATION_INTERVAL = 100;
+const ICON_ANIMATON_DURATION = 500;
+const ANIMATION_INTERVAL = 60;
 const propTypes = {
   setGoal: PropTypes.func,
   navigation: PropTypes.object,
