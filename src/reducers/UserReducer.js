@@ -1,7 +1,7 @@
 import { ActionKey } from '../actions/UserActions';
 
 const INITIAL_STATE = {
-  goal: '', // lose_weight | get_fitter | gainMuscle
+  goal: '', // lose_weight | get_fitter | gain_muscle
   age: undefined,
   height: {
     preferredUnits: '', // cm | ft

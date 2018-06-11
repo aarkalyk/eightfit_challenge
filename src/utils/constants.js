@@ -6,7 +6,7 @@ export const MetricUnits = {
 export const GoalTypes = {
   loseWeight: 'lose_weight',
   getFitter: 'get_fitter',
-  gainMuscle: 'gainMuscle',
+  gainMuscle: 'gain_muscle',
 };
 
 export const GoalItems = {
