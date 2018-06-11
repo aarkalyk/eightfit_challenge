@@ -5,6 +5,15 @@ import PropTypes from 'prop-types';
 import { images, colors, textStyles } from '../../assets';
 import { GoalTypes } from '../../utils/constants';
 
+const propTypes = {
+  onPress: PropTypes.func,
+  goalItem: PropTypes.shape({
+    type: PropTypes.oneOf([GoalTypes.getFitter, GoalTypes.loseWeight, GoalTypes.gainMuscle]),
+    displayTitle: PropTypes.string,
+    displaySubtitle: PropTypes.string,
+  }),
+};
+
 export const GoalComponent = ({ onPress, goalItem }) => (
   <TouchableOpacity onPress={() => onPress(goalItem.type)}>
     <View style={styles.mainContainer}>
@@ -17,14 +26,7 @@ export const GoalComponent = ({ onPress, goalItem }) => (
   </TouchableOpacity>
 );
 
-GoalComponent.propTypes = {
-  onPress: PropTypes.func,
-  goalItem: PropTypes.shape({
-    type: PropTypes.oneOf([GoalTypes.getFitter, GoalTypes.loseWeight, GoalTypes.gainMuscle]),
-    displayTitle: PropTypes.string,
-    displaySubtitle: PropTypes.string,
-  }),
-};
+GoalComponent.propTypes = propTypes;
 
 const styles = StyleSheet.create({
   mainContainer: {
