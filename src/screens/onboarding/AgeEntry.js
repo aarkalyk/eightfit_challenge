@@ -26,7 +26,7 @@ class AgeEntryScreen extends Component {
     errorMessage: '',
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(_, prevState) {
     this.state.errorMessage !== prevState.errorMessage && LayoutAnimation.easeInEaseOut();
   }
 

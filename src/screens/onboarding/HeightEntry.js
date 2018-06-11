@@ -43,7 +43,7 @@ class HeightEntryScreen extends Component {
     inches: undefined,
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(_, prevState) {
     this.state.errorMessage !== prevState.errorMessage && LayoutAnimation.easeInEaseOut();
   }
 
