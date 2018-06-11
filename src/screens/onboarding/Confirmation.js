@@ -28,8 +28,10 @@ class ConfirmationScreen extends Component {
     header: null,
   };
 
-  renderBackgroundImages() {
-    return animatedBackgroundViews()(
+  constructor(props) {
+    super(props);
+
+    this.animatedBackgroundViews = animatedBackgroundViews()(
       <Image source={images.beans} style={styles.beansImage} />,
       <Image source={images.parsley} style={styles.parsleyImage} />,
     );
@@ -69,7 +71,7 @@ class ConfirmationScreen extends Component {
   render() {
     return (
       <ImageBackground source={images.backgroundGrain} style={styles.imageBackground}>
-        {this.renderBackgroundImages()}
+        {this.animatedBackgroundViews}
         <View style={styles.mainContainer}>
           <View>
             {this.renderHeader()}

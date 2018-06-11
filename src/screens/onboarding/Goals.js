@@ -31,9 +31,21 @@ const propTypes = {
 class GoalsScreen extends Component {
   static navigationOptions = { header: null };
 
-  state = {
-    appIconTransateY: new Animated.Value(SCREEN_HEIGHT / 2),
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      appIconTransateY: new Animated.Value(SCREEN_HEIGHT / 2),
+    };
+
+    this.animatedBackgroundViews = animatedBackgroundViews(ICON_ANIMATON_DURATION)(
+      <Image source={images.beans} style={styles.beansImage} />,
+      <View style={styles.dumbellImageContainer}>
+        <Image source={images.mat} />
+        <Image source={images.dumbell} style={styles.dumbellImage} />
+      </View>,
+    );
+  }
 
   componentDidMount() {
     Animated.timing(this.state.appIconTransateY, {
@@ -47,16 +59,6 @@ class GoalsScreen extends Component {
     this.props.setGoal(goal);
     this.props.navigation.navigate(OnboardingRoutes.AgeEntry);
   };
-
-  renderBackgroundImages() {
-    return animatedBackgroundViews(ICON_ANIMATON_DURATION)(
-      <Image source={images.beans} style={styles.beansImage} />,
-      <View style={styles.dumbellImageContainer}>
-        <Image source={images.mat} />
-        <Image source={images.dumbell} style={styles.dumbellImage} />
-      </View>,
-    );
-  }
 
   renderTitles() {
     return (
@@ -114,7 +116,7 @@ class GoalsScreen extends Component {
   render() {
     return (
       <ImageBackground source={images.backgroundGrain} style={styles.backgroundGrain}>
-        {this.renderBackgroundImages()}
+        {this.animatedBackgroundViews}
         <View style={styles.container}>
           {this.renderAppIcon()}
           {this.renderTitles()}
