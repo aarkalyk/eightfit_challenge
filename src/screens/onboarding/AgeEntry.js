@@ -1,43 +1,35 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, Platform, LayoutAnimation } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
 
-import { Button, Header, TextInput, KeyboardAvoidingView } from '../../components/common';
+import { Button, TextInput, KeyboardAvoidingView } from '../../components/common';
 import { images, textStyles } from '../../assets';
 import { OnboardingRoutes } from '../../components/navigation';
 import { setAge } from '../../actions';
+import { valueWithinLimits, hasHeaderWithProgress } from '../../HOC';
 
 const MIN_AGE = 13;
 const MAX_AGE = 120;
 const propTypes = {
   setAge: PropTypes.func,
   navigation: PropTypes.object,
+  validateValue: PropTypes.func,
+  errorMessage: PropTypes.string,
 };
 
 class AgeEntryScreen extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    header: <Header progress={0.75} onBackButtonPress={() => navigation.goBack()} />,
-  });
-
   state = {
     age: undefined,
-    errorMessage: '',
   };
-
-  componentDidUpdate(_, prevState) {
-    this.state.errorMessage !== prevState.errorMessage && LayoutAnimation.easeInEaseOut();
-  }
 
   onChangeAge = (text) => {
     const age = !isNaN(text) && Number(text);
-    const errorMessage =
-      age && age < MIN_AGE
-        ? `You must be at least ${MIN_AGE} years old`
-        : age > MAX_AGE ? 'Please, enter your real age' : '';
 
-    this.setState({ age, errorMessage });
+    this.setState({ age });
+    this.props.validateValue(age);
   };
 
   onContinueButtonPress = () => {
@@ -46,7 +38,8 @@ class AgeEntryScreen extends Component {
   };
 
   render() {
-    const { age, errorMessage } = this.state;
+    const { age } = this.state;
+    const { errorMessage } = this.props;
 
     return (
       <View style={styles.container}>
@@ -104,4 +97,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export const AgeEntry = connect(null, { setAge })(AgeEntryScreen);
+export const AgeEntry = compose(
+  hasHeaderWithProgress(0.75),
+  connect(null, { setAge }),
+  valueWithinLimits(MIN_AGE, MAX_AGE, 'Please, enter a valid number'),
+)(AgeEntryScreen);

@@ -5,24 +5,19 @@ import {
   TouchableWithoutFeedback,
   StyleSheet,
   LayoutAnimation,
-  Platform,
   Keyboard,
 } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
 
-import {
-  Button,
-  Header,
-  TextInput,
-  SegmentedControl,
-  KeyboardAvoidingView,
-} from '../../components/common';
+import { Button, TextInput, SegmentedControl, KeyboardAvoidingView } from '../../components/common';
 import { OnboardingRoutes } from '../../components/navigation';
 import { images, textStyles } from '../../assets';
 import { setHeight } from '../../actions';
 import { Converter } from '../../utils/Converter';
 import { MetricUnits } from '../../utils/constants';
+import { valueWithinLimits, hasHeaderWithProgress } from '../../HOC';
 
 const MIN_HEIGHT = 125;
 const MAX_HEIGHT = 301;
@@ -32,26 +27,12 @@ const propTypes = {
 };
 
 class HeightEntryScreen extends Component {
-  static navigationOptions = ({ navigation }) => ({
-    header: <Header progress={1.0} onBackButtonPress={() => navigation.goBack()} />,
-  });
-
   state = {
     preferredUnits: MetricUnits.cm,
     centimiters: undefined,
     feet: undefined,
     inches: undefined,
   };
-
-  componentDidUpdate(_, prevState) {
-    this.state.errorMessage !== prevState.errorMessage && LayoutAnimation.easeInEaseOut();
-  }
-
-  getHeightError(centimiters) {
-    return centimiters && (centimiters < MIN_HEIGHT || centimiters > MAX_HEIGHT)
-      ? 'Please enter your real height'
-      : '';
-  }
 
   onContinueButtonPress = () => {
     Keyboard.dismiss();
@@ -68,21 +49,22 @@ class HeightEntryScreen extends Component {
     this.setState({ [name]: height }, () => {
       if (this.state.preferredUnits === MetricUnits.cm) {
         const { feet, inches } = Converter.cmToFeet(height);
-        const errorMessage = this.getHeightError(height);
 
-        this.setState({ feet, inches, errorMessage });
+        this.setState({ feet, inches });
+        this.props.validateValue(height);
       } else {
         const { feet, inches } = this.state;
         const centimiters = Converter.feetToCm(feet, inches);
-        const errorMessage = this.getHeightError(centimiters);
 
-        this.setState({ centimiters, errorMessage });
+        this.setState({ centimiters });
+        this.props.validateValue(centimiters);
       }
     });
   };
 
   renderTextInputs = () => {
-    const { centimiters, preferredUnits, inches, feet, errorMessage } = this.state;
+    const { centimiters, preferredUnits, inches, feet } = this.state;
+    const { errorMessage } = this.props;
 
     return preferredUnits === MetricUnits.cm ? (
       <TextInput
@@ -118,7 +100,8 @@ class HeightEntryScreen extends Component {
   };
 
   render() {
-    const { centimiters, errorMessage, preferredUnits } = this.state;
+    const { centimiters, preferredUnits } = this.state;
+    const { errorMessage } = this.props;
 
     return (
       <View style={styles.mainContainer}>
@@ -193,4 +176,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export const HeightEntry = connect(null, { setHeight })(HeightEntryScreen);
+export const HeightEntry = compose(
+  hasHeaderWithProgress(1.0),
+  valueWithinLimits(MIN_HEIGHT, MAX_HEIGHT, 'Please, enter your real height'),
+  connect(null, { setHeight }),
+)(HeightEntryScreen);
