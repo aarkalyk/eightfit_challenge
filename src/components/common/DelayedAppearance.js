@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { View, Animated } from 'react-native';
+import { Animated } from 'react-native';
 import PropTypes from 'prop-types';
 
 const INITIAL_TRANSLATE_Y = 10;
 const propTypes = {
   children: PropTypes.element,
+  delay: PropTypes.number,
+  style: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
 };
 
 class DelayedAppearance extends Component {

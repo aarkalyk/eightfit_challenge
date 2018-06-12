@@ -1,19 +1,12 @@
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  TouchableWithoutFeedback,
-  StyleSheet,
-  LayoutAnimation,
-  Keyboard,
-} from 'react-native';
+import { View, Text, StyleSheet, Keyboard } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
 
 import { Button, TextInput, SegmentedControl, KeyboardAvoidingView } from '../../components/common';
 import { OnboardingRoutes } from '../../components/navigation';
-import { images, textStyles } from '../../assets';
+import { textStyles } from '../../assets';
 import { setHeight } from '../../actions';
 import { Converter } from '../../utils/Converter';
 import { MetricUnits } from '../../utils/constants';
@@ -24,6 +17,8 @@ const MAX_HEIGHT = 301;
 const propTypes = {
   setHeight: PropTypes.func,
   navigation: PropTypes.object,
+  errorMessage: PropTypes.string,
+  validateValue: PropTypes.func,
 };
 
 class HeightEntryScreen extends Component {
@@ -100,7 +95,7 @@ class HeightEntryScreen extends Component {
   };
 
   render() {
-    const { centimiters, preferredUnits } = this.state;
+    const { preferredUnits } = this.state;
     const { errorMessage } = this.props;
 
     return (

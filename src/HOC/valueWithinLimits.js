@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { LayoutAnimation } from 'react-native';
 
-export const valueWithinLimits = (minValue, maxValue, errorMessage) => (WrappedComponent) =>
-  class extends Component {
+export const valueWithinLimits = (minValue, maxValue, errorMessage) => (WrappedComponent) => {
+  class WrappingComponent extends Component {
     state = {
       errorMessage: '',
     };
@@ -21,4 +21,7 @@ export const valueWithinLimits = (minValue, maxValue, errorMessage) => (WrappedC
         <WrappedComponent {...this.props} {...this.state} validateValue={this.validateValue} />
       );
     }
-  };
+  }
+
+  return WrappingComponent;
+};

@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { NavigationActions } from 'react-navigation';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
 
 import { Button, TextInput, KeyboardAvoidingView } from '../../components/common';
-import { images, textStyles } from '../../assets';
+import { textStyles } from '../../assets';
 import { OnboardingRoutes } from '../../components/navigation';
 import { setAge } from '../../actions';
 import { valueWithinLimits, hasHeaderWithProgress } from '../../HOC';

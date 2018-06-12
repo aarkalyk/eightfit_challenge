@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 
 import { Header } from '../components/common';
 
-export const hasHeaderWithProgress = (progress) => (WrappedComponent) =>
-  class extends Component {
+export const hasHeaderWithProgress = (progress) => (WrappedComponent) => {
+  class WrappingComponent extends Component {
     static navigationOptions = ({ navigation }) => ({
       header: <Header progress={progress} onBackButtonPress={() => navigation.goBack()} />,
     });
@@ -11,4 +11,7 @@ export const hasHeaderWithProgress = (progress) => (WrappedComponent) =>
     render() {
       return <WrappedComponent {...this.props} />;
     }
-  };
+  }
+
+  return WrappingComponent;
+};

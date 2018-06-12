@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, View, Text, StyleSheet, Platform } from 'react-native';
+import { TextInput, View, Text, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 
 import { colors, textStyles } from '../../assets';
@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
   },
   textInput: {
     textAlign: 'right',
-    height: '100%',
     flex: 0.55,
     paddingTop: 0,
     paddingBottom: 0,

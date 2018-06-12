@@ -1,15 +1,5 @@
 import React, { Component } from 'react';
-import { NavigationActions } from 'react-navigation';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  Dimensions,
-  ImageBackground,
-  TouchableOpacity,
-  Animated,
-} from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions, ImageBackground, Animated } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 

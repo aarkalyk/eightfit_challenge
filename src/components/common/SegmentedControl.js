@@ -9,6 +9,7 @@ const propTypes = {
   title: PropTypes.string,
   currentIndex: PropTypes.number,
   onSelect: PropTypes.func,
+  titles: PropTypes.array,
 };
 
 export const SegmentedControl = ({ style, titles, currentIndex, onSelect }) => (

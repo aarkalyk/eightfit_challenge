@@ -21,6 +21,7 @@ const propTypes = {
     Age: PropTypes.string,
     Height: PropTypes.string,
   }),
+  navigation: PropTypes.object,
 };
 
 class ConfirmationScreen extends Component {
