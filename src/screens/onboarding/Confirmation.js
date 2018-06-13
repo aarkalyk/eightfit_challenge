@@ -38,6 +38,8 @@ class ConfirmationScreen extends Component {
     );
   }
 
+  onBackButtonPress = () => this.props.navigation.goBack();
+
   renderTitle() {
     return (
       <DelayedAppearance delay={FIRST_ANIMATION_DELAY}>
@@ -46,9 +48,7 @@ class ConfirmationScreen extends Component {
     );
   }
 
-  renderHeader = () => (
-    <Header style={styles.header} onBackButtonPress={() => this.props.navigation.goBack()} />
-  );
+  renderHeader = () => <Header style={styles.header} onBackButtonPress={this.onBackButtonPress} />;
 
   renderDetailsTable = () => (
     <DelayedAppearance delay={FIRST_ANIMATION_DELAY + ANIMATION_INTERVAL}>

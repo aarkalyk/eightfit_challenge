@@ -65,10 +65,6 @@ class GoalsScreen extends Component {
 
   renderAppIcon = () => {
     const { appIconTransateY } = this.state;
-    const scaleY = appIconTransateY.interpolate({
-      inputRange: [40, SCREEN_HEIGHT / 2],
-      outputRange: [1, 2],
-    });
     const scaleX = appIconTransateY.interpolate({
       inputRange: [40, SCREEN_HEIGHT / 2],
       outputRange: [1, 2],
@@ -78,7 +74,7 @@ class GoalsScreen extends Component {
       <Animated.Image
         source={images.appIcon}
         style={{
-          transform: [{ translateY: appIconTransateY }, { scaleX }, { scaleY }],
+          transform: [{ translateY: appIconTransateY }, { scaleX }, { scaleY: scaleX }],
         }}
       />
     );
