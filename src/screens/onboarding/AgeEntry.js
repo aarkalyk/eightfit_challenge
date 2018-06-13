@@ -99,5 +99,5 @@ const styles = StyleSheet.create({
 export const AgeEntry = compose(
   hasHeaderWithProgress(0.75),
   connect(null, { setAge }),
-  valueWithinLimits(MIN_AGE, MAX_AGE, 'Please, enter a valid number'),
+  valueWithinLimits(MIN_AGE, MAX_AGE, 'Please, enter your real age'),
 )(AgeEntryScreen);
