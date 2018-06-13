@@ -95,8 +95,9 @@ class HeightEntryScreen extends Component {
   };
 
   render() {
-    const { preferredUnits } = this.state;
+    const { preferredUnits, centimiters } = this.state;
     const { errorMessage } = this.props;
+    const metricUnits = Object.keys(MetricUnits).map((key) => MetricUnits[key]);
 
     return (
       <View style={styles.mainContainer}>
@@ -108,15 +109,15 @@ class HeightEntryScreen extends Component {
           {this.renderTextInputs()}
           <SegmentedControl
             style={styles.segmentedControl}
-            titles={[MetricUnits.ft, MetricUnits.cm]}
+            titles={metricUnits}
             onSelect={this.onChangeUnits}
-            currentIndex={preferredUnits === MetricUnits.cm ? 1 : 0}
+            currentIndex={metricUnits.indexOf(preferredUnits)}
           />
         </View>
         <KeyboardAvoidingView>
           <Button
             onPress={this.onContinueButtonPress}
-            disabled={!!errorMessage || !this.state.centimiters}
+            disabled={!!errorMessage || !centimiters}
             title="Continue"
             style={styles.continueButton}
           />
