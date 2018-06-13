@@ -13,8 +13,5 @@
     },
     "sourceType": "module"
   },
-  "plugins": ["react", "react-native"],
-  "rules": {
-    "jsx-uses-vars": false
-  }
+  "plugins": ["react", "react-native"]
 }
