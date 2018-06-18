@@ -47,7 +47,7 @@ class GoalsScreen extends Component {
 
   onGoalItemPress = (goal) => {
     this.props.setGoal(goal);
-    this.props.navigation.navigate(OnboardingRoutes.AgeEntry);
+    // this.props.navigation.navigate(OnboardingRoutes.AgeEntry);
   };
 
   renderTitles() {

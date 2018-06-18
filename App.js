@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { UIManager, Platform } from 'react-native';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
 
 import { OnboardingNavigator } from './src/components/navigation';
-import { reducers } from './src/reducers';
+import { store } from './src/store';
 
 export default class App extends Component {
   constructor(props) {
@@ -17,8 +16,6 @@ export default class App extends Component {
   }
 
   render() {
-    const store = createStore(reducers);
-
     return (
       <Provider store={store}>
         <OnboardingNavigator />

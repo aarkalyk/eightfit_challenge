@@ -14,8 +14,10 @@
     "react": "16.3.1",
     "react-native": "0.55.3",
     "react-navigation": "2.2.5",
+    "react-navigation-redux-helpers": "^2.0.2",
     "react-redux": "5.0.7",
-    "redux": "4.0.0"
+    "redux": "4.0.0",
+    "redux-logic": "^0.15.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.3",
@@ -30,6 +32,8 @@
     "preset": "react-native"
   },
   "rnpm": {
-    "assets": ["./resources/fonts"]
+    "assets": [
+      "./resources/fonts"
+    ]
   }
 }

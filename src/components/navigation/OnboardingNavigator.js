@@ -1,4 +1,6 @@
 import { createStackNavigator } from 'react-navigation';
+import { reduxifyNavigator } from 'react-navigation-redux-helpers';
+import { connect } from 'react-redux';
 
 import { Goals, AgeEntry, HeightEntry, Confirmation } from '../../screens/onboarding';
 
@@ -9,7 +11,7 @@ export const OnboardingRoutes = {
   Confirmation: 'Confirmation',
 };
 
-export const OnboardingNavigator = createStackNavigator(
+const OnboardingNav = createStackNavigator(
   {
     [OnboardingRoutes.Goals]: Goals,
     [OnboardingRoutes.AgeEntry]: AgeEntry,
@@ -20,3 +22,11 @@ export const OnboardingNavigator = createStackNavigator(
     headerMode: 'screen',
   },
 );
+
+const mapStateToProps = (state) => ({
+  state: state.nav,
+});
+
+const app = reduxifyNavigator(OnboardingNav, 'root');
+
+export const OnboardingNavigator = connect(mapStateToProps)(app);
